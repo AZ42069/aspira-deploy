@@ -328,10 +328,9 @@
 
     .slide {
       width: 100vw !important;
-      height: auto !important;
       min-height: auto !important;
       padding: 4vw 5vw 3vw !important;
-      overflow: visible !important;
+      overflow: hidden !important;
       flex-direction: column !important;
       justify-content: flex-start !important;
       border: none !important;
@@ -1064,8 +1063,8 @@
 
 <script>
   let cur = 0;
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
+  let slides = document.querySelectorAll('.slide');
+  let total = slides.length;
   const dots = document.getElementById('navDots');
 
   // Build dots
@@ -1074,17 +1073,6 @@
     d.className = 'dot' + (i === 0 ? ' active' : '');
     d.onclick = () => goTo(i);
     dots.appendChild(d);
-  }
-
-  function reportHeight() {
-    var active = document.querySelector('.slide.active');
-    if (active && window.parent !== window) {
-      // Small delay so layout settles
-      setTimeout(function(){
-        var h = active.scrollHeight + 20; // small buffer
-        window.parent.postMessage({ type: 'deckHeight', height: h }, '*');
-      }, 50);
-    }
   }
 
   function goTo(n) {
@@ -1096,7 +1084,6 @@
     document.getElementById('prevBtn').disabled = cur === 0;
     document.getElementById('nextBtn').disabled = cur === total - 1;
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    reportHeight();
   }
 
   function changeSlide(d) {
@@ -1117,10 +1104,187 @@
     if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
   }, { passive: true });
 
-  // Report initial height after load
-  window.addEventListener('load', function(){ reportHeight(); });
-  setTimeout(function(){ reportHeight(); }, 500);
-  setTimeout(function(){ reportHeight(); }, 1500);
+  /* ── Mobile auto-split ──
+     On mobile, measure each slide's natural height against the iframe height.
+     If a slide overflows, split it into two (or more) slides by moving
+     overflowing children to a continuation slide. For disclosure/risk
+     slides, split at paragraph boundaries within the card. After splitting,
+     rebuild navigation dots and lock all slides to a fixed height. */
+  (function() {
+    if (window.innerWidth > 768) return;
+
+    function run() {
+      var slideshow = document.querySelector('.slideshow');
+      var navEl = document.querySelector('.nav');
+      var navH = navEl ? navEl.offsetHeight + 10 : 60;
+      var targetH = window.innerHeight - navH;
+
+      // Show every slide at natural height for measurement
+      var origSlides = Array.from(slideshow.querySelectorAll('.slide'));
+      origSlides.forEach(function(s) {
+        s.style.setProperty('display', 'flex', 'important');
+        s.style.setProperty('height', 'auto', 'important');
+        s.style.setProperty('max-height', 'none', 'important');
+        s.style.setProperty('overflow', 'visible', 'important');
+      });
+
+      // Iteratively split until nothing overflows
+      var changed = true;
+      var safety = 40;
+      while (changed && safety-- > 0) {
+        changed = false;
+        var current = Array.from(slideshow.querySelectorAll('.slide'));
+        for (var i = 0; i < current.length; i++) {
+          var sl = current[i];
+          sl.style.setProperty('display', 'flex', 'important');
+          sl.style.setProperty('height', 'auto', 'important');
+          sl.style.setProperty('max-height', 'none', 'important');
+          sl.style.setProperty('overflow', 'visible', 'important');
+
+          if (sl.scrollHeight <= targetH + 2) continue;
+
+          var newSlide = trySplit(sl, targetH);
+          if (newSlide) {
+            newSlide.style.setProperty('display', 'flex', 'important');
+            newSlide.style.setProperty('height', 'auto', 'important');
+            newSlide.style.setProperty('max-height', 'none', 'important');
+            newSlide.style.setProperty('overflow', 'visible', 'important');
+            sl.parentNode.insertBefore(newSlide, sl.nextSibling);
+            changed = true;
+            break; // restart loop — DOM changed
+          }
+        }
+      }
+
+      // Lock every slide to the target height
+      var finalSlides = slideshow.querySelectorAll('.slide');
+      for (var j = 0; j < finalSlides.length; j++) {
+        var s = finalSlides[j];
+        s.style.removeProperty('display');
+        s.style.setProperty('height', targetH + 'px', 'important');
+        s.style.setProperty('max-height', targetH + 'px', 'important');
+        s.style.setProperty('overflow', 'hidden', 'important');
+        s.classList.remove('active');
+      }
+      finalSlides[0].classList.add('active');
+
+      // Update slide numbers
+      for (var k = 0; k < finalSlides.length; k++) {
+        var num = finalSlides[k].querySelector('.s-num');
+        if (num) {
+          var n = k + 1;
+          num.textContent = (n < 10 ? '0' : '') + n + ' / ' + finalSlides.length;
+        }
+      }
+
+      // Rebuild navigation
+      slides = finalSlides;
+      total = finalSlides.length;
+      cur = 0;
+
+      dots.innerHTML = '';
+      for (var d = 0; d < total; d++) {
+        var dot = document.createElement('div');
+        dot.className = 'dot' + (d === 0 ? ' active' : '');
+        dot.onclick = (function(idx) { return function() { goTo(idx); }; })(d);
+        dots.appendChild(dot);
+      }
+      document.getElementById('prevBtn').disabled = true;
+      document.getElementById('nextBtn').disabled = total <= 1;
+    }
+
+    /* Try to split one slide. Returns the new continuation slide, or null. */
+    function trySplit(slide, targetH) {
+      var slideTop = slide.getBoundingClientRect().top;
+      var children = Array.from(slide.children);
+
+      // Find footer (last .s-footer)
+      var footer = null;
+      for (var i = children.length - 1; i >= 0; i--) {
+        if (children[i].classList.contains('s-footer')) { footer = children[i]; break; }
+      }
+
+      // Find header (may be nested inside .col-l)
+      var header = slide.querySelector('.s-header');
+
+      // Content = everything except footer
+      var content = children.filter(function(el) { return el !== footer; });
+
+      // Disclosure / risk slides — split at paragraph boundaries
+      var discText = slide.querySelector('.disclosure-text');
+      if (discText && discText.querySelectorAll('p').length > 1) {
+        return splitParagraphs(slide, header, footer, discText, targetH, slideTop);
+      }
+
+      // Generic split: find first content child whose bottom exceeds the limit
+      var footerH = footer ? footer.offsetHeight + 15 : 15;
+      var limit = targetH - footerH;
+      var splitIdx = -1;
+
+      for (var i = 0; i < content.length; i++) {
+        var rect = content[i].getBoundingClientRect();
+        if (rect.bottom - slideTop > limit) { splitIdx = i; break; }
+      }
+
+      // Can't split if nothing overflows or only the header overflows
+      if (splitIdx <= 0) return null;
+      if (splitIdx === 1 && content[0] === header) return null;
+
+      // Build continuation slide
+      var cont = document.createElement('div');
+      cont.className = 'slide slide-stack';
+      cont.style.justifyContent = 'flex-start';
+
+      if (header) cont.appendChild(header.cloneNode(true));
+
+      // Move overflowing elements (skip the header itself if it's in content)
+      var toMove = content.slice(splitIdx).filter(function(el) { return el !== header; });
+      toMove.forEach(function(el) { cont.appendChild(el); });
+
+      if (footer) cont.appendChild(footer.cloneNode(true));
+      return cont;
+    }
+
+    /* Split a disclosure/risk slide at paragraph boundaries. */
+    function splitParagraphs(slide, header, footer, discText, targetH, slideTop) {
+      var paras = Array.from(discText.querySelectorAll('p'));
+      var footerH = footer ? footer.offsetHeight + 15 : 15;
+      var limit = targetH - footerH;
+
+      var splitAt = -1;
+      for (var i = 0; i < paras.length; i++) {
+        if (paras[i].getBoundingClientRect().bottom - slideTop > limit) { splitAt = i; break; }
+      }
+      if (splitAt <= 0) return null;
+
+      var cont = document.createElement('div');
+      cont.className = 'slide slide-stack';
+      cont.style.justifyContent = 'flex-start';
+
+      if (header) cont.appendChild(header.cloneNode(true));
+
+      // New card with the remaining paragraphs
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.style.cssText = 'padding:24px; margin-bottom:auto;';
+      var dt = document.createElement('div');
+      dt.className = 'disclosure-text';
+      dt.style.cssText = 'font-size:9.5px; line-height:1.7;';
+      for (var j = splitAt; j < paras.length; j++) dt.appendChild(paras[j]);
+      card.appendChild(dt);
+      cont.appendChild(card);
+
+      if (footer) cont.appendChild(footer.cloneNode(true));
+      return cont;
+    }
+
+    // Run after fonts load so measurements are accurate
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(run);
+    } else {
+      window.addEventListener('load', run);
+    }
+  })();
 </script>
 
 </body>
