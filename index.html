@@ -1759,21 +1759,28 @@
     var backWrap = document.getElementById('qf-back-wrap');
     var progressWrap = document.getElementById('qf-progress-wrap');
 
+    // --- Google Sheets integration ---
+    var SHEET_URL = 'https://script.google.com/a/macros/zastreco.com/s/AKfycbzeut2pCLHELUyjd4a-jwcnY14mnxJ6zvYWtgXweAA_nN62VN9GG2IoPdGa5yF4wlnH/exec';
+
+    function sendToSheet() {
+      try {
+        fetch(SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(data)
+        }).catch(function(){});
+      } catch(e){}
+    }
+
     // --- localStorage persistence ---
     var STORAGE_KEY = 'aspira_lead';
     function saveData() {
       data.lastStep = step;
       data.savedAt = new Date().toISOString();
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){}
+      sendToSheet();
     }
-    function loadData() {
-      try {
-        var saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) { data = JSON.parse(saved); }
-      } catch(e){}
-    }
-    // Load any existing partial data on init
-    loadData();
 
     function showSlide(n) {
       slides.forEach(function(s){ s.classList.remove('qf-active'); });
@@ -1868,7 +1875,7 @@
       }
       if (step >= totalSteps) {
         step = 6; // success
-        console.log('Aspira Lead (complete):', JSON.stringify(data));
+        // Final submission already handled by saveData() in validateStep
       }
       showSlide(step);
     };
