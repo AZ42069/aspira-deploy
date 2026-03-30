@@ -100,12 +100,12 @@
     text-align: center;
   }
   @media (max-width: 768px) {
-    .hero { padding-top: 6.5rem !important; padding-bottom: 2rem !important; }
+    .hero { padding-top: 5.5rem !important; padding-bottom: 1.5rem !important; }
     #deck-wrap { margin-bottom: 1rem !important; }
-    .hero-sub, .hero p { margin-bottom: 1rem !important; }
-    .hero-sub { font-size: 0.9375rem !important; }
-    .hero-badge { font-size: 0.55rem !important; letter-spacing: 0.03em !important; padding: 0.28rem 0.7rem !important; white-space: nowrap !important; margin-top: 0.75rem !important; }
-    .hero h1 { font-size: 1.75rem !important; }
+    .hero-sub, .hero p { margin-bottom: 0.75rem !important; }
+    .hero-sub { font-size: 0.875rem !important; }
+    .hero-badge { font-size: 0.55rem !important; letter-spacing: 0.03em !important; padding: 0.28rem 0.7rem !important; white-space: nowrap !important; margin-top: 0 !important; margin-bottom: 0.75rem !important; }
+    .hero h1 { font-size: 1.5rem !important; margin-bottom: 0.5rem !important; }
     .hero-stats { gap: 1.25rem !important; }
     .hero-stat-num { font-size: 1.35rem !important; }
     .hero-stat-label { font-size: 0.6rem !important; }
@@ -113,6 +113,8 @@
     .navbar-cta { font-size: 0.7rem !important; padding: 0.4rem 0.85rem !important; }
     section { padding: 3rem 0 !important; }
     h2 { font-size: 1.5rem !important; }
+    #hero-cta-mobile { display: block !important; }
+    #hero-cta-desktop { display: none !important; }
   }
   @media (max-width: 480px) {
     .hero-badge { white-space: normal !important; max-width: 90vw; }
@@ -682,6 +684,12 @@
       <h1>Earn 12&ndash;18% Annual Returns<br>in <span class="text-gold">Private Credit</span></h1>
       <p class="hero-sub">Monthly distributions. UCC-secured on receivables. Non-correlated to public markets. Target 12&ndash;18% annual returns with Aspira Capital Group.</p>
 
+      <!-- Mobile CTA (above deck) -->
+      <div id="hero-cta-mobile" style="display:none; text-align:center; margin: 0 auto 1.5rem;">
+        <a href="#qualify" class="cta-btn">See If You Qualify &rarr;</a>
+        <div style="font-size:0.8125rem; color:var(--gray-500); margin-top:0.5rem;">For accredited investors &middot; $50K minimum</div>
+      </div>
+
       <div id="deck-wrap" style="position:relative; margin: 0 auto 2.5rem; max-width: 1140px; overflow:visible;">
         <div id="deck-outer" style="border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(15,27,45,0.14); border: 3px solid var(--gold); outline: 6px solid rgba(184,148,63,0.12);">
           <div id="deck-scaler" style="transform-origin:top left; line-height:0;">
@@ -722,7 +730,7 @@
           if (!outer || !scaler || !iframe) return;
           var isMobile = window.innerWidth <= 768;
           var isSmall = window.innerWidth <= 480;
-          var slideH = isSmall ? 1400 : (isMobile ? 1100 : 720);
+          var slideH = isSmall ? 900 : (isMobile ? 800 : 720);
           var containerW = isMobile ? window.innerWidth - 32 : (wrap ? wrap.offsetWidth : outer.offsetWidth);
           var scale = containerW / 1280;
           iframe.style.height = slideH + 'px';
@@ -743,7 +751,7 @@
         setTimeout(scaleDeck, 1000);
       </script>
 
-      <div style="text-align:center; margin: 0 auto 1.5rem;">
+      <div id="hero-cta-desktop" style="text-align:center; margin: 0 auto 1.5rem;">
         <a href="#qualify" class="cta-btn">See If You Qualify &rarr;</a>
         <div style="font-size:0.875rem; color:var(--gray-500); margin-top:0.5rem;">For accredited investors &middot; $50K minimum &middot; Monthly distributions</div>
       </div>
