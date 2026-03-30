@@ -1104,24 +1104,49 @@
     if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
   }, { passive: true });
 
-  /* ── Mobile auto-split ──
-     On mobile, measure each slide's natural height against the iframe height.
-     If a slide overflows, split it into two (or more) slides by moving
-     overflowing children to a continuation slide. For disclosure/risk
-     slides, split at paragraph boundaries within the card. After splitting,
-     rebuild navigation dots and lock all slides to a fixed height. */
+  /* ═══════════════════════════════════════════════════════════
+     MOBILE AUTO-SPLIT
+     The iframe starts at 1280×720 (desktop) and the parent's
+     scaleDeck() resizes it to ~340×425 on phones. We can NOT
+     check width at parse time — we must wait for the resize.
+     Once mobile is detected, we measure every slide's natural
+     height, split overflowing ones into continuations, and
+     rebuild the navigation.
+     ═══════════════════════════════════════════════════════════ */
   (function() {
-    if (window.innerWidth > 768) return;
+    var splitDone = false;
 
-    function run() {
-      var slideshow = document.querySelector('.slideshow');
+    function tryInit() {
+      if (splitDone || window.innerWidth > 768) return;
+      splitDone = true;
+      // Wait for fonts so measurements are accurate
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function() {
+          requestAnimationFrame(function() { requestAnimationFrame(doSplit); });
+        });
+      } else {
+        setTimeout(doSplit, 300);
+      }
+    }
+
+    // Trigger points — iframe starts at 1280px so the resize event
+    // from the parent's scaleDeck() is the primary trigger
+    tryInit();                                                   // standalone mobile
+    window.addEventListener('resize', tryInit);                  // parent resizes iframe
+    window.addEventListener('load', function() { setTimeout(tryInit, 200); });
+    setTimeout(tryInit, 800);
+    setTimeout(tryInit, 2000);
+
+    /* ── Main split orchestrator ── */
+    function doSplit() {
+      var ss = document.querySelector('.slideshow');
       var navEl = document.querySelector('.nav');
       var navH = navEl ? navEl.offsetHeight + 10 : 60;
       var targetH = window.innerHeight - navH;
+      if (targetH < 200) return; // sanity
 
-      // Show every slide at natural height for measurement
-      var origSlides = Array.from(slideshow.querySelectorAll('.slide'));
-      origSlides.forEach(function(s) {
+      // Show all slides at natural height for measurement
+      Array.from(ss.querySelectorAll('.slide')).forEach(function(s) {
         s.style.setProperty('display', 'flex', 'important');
         s.style.setProperty('height', 'auto', 'important');
         s.style.setProperty('max-height', 'none', 'important');
@@ -1129,13 +1154,12 @@
       });
 
       // Iteratively split until nothing overflows
-      var changed = true;
-      var safety = 40;
+      var changed = true, safety = 50;
       while (changed && safety-- > 0) {
         changed = false;
-        var current = Array.from(slideshow.querySelectorAll('.slide'));
-        for (var i = 0; i < current.length; i++) {
-          var sl = current[i];
+        var arr = Array.from(ss.querySelectorAll('.slide'));
+        for (var i = 0; i < arr.length; i++) {
+          var sl = arr[i];
           sl.style.setProperty('display', 'flex', 'important');
           sl.style.setProperty('height', 'auto', 'important');
           sl.style.setProperty('max-height', 'none', 'important');
@@ -1143,134 +1167,200 @@
 
           if (sl.scrollHeight <= targetH + 2) continue;
 
-          var newSlide = trySplit(sl, targetH);
-          if (newSlide) {
-            newSlide.style.setProperty('display', 'flex', 'important');
-            newSlide.style.setProperty('height', 'auto', 'important');
-            newSlide.style.setProperty('max-height', 'none', 'important');
-            newSlide.style.setProperty('overflow', 'visible', 'important');
-            sl.parentNode.insertBefore(newSlide, sl.nextSibling);
+          var ns = trySplit(sl, targetH);
+          if (ns) {
+            ns.style.setProperty('display', 'flex', 'important');
+            ns.style.setProperty('height', 'auto', 'important');
+            ns.style.setProperty('max-height', 'none', 'important');
+            ns.style.setProperty('overflow', 'visible', 'important');
+            sl.parentNode.insertBefore(ns, sl.nextSibling);
             changed = true;
-            break; // restart loop — DOM changed
+            break; // restart — DOM changed
           }
         }
       }
 
       // Lock every slide to the target height
-      var finalSlides = slideshow.querySelectorAll('.slide');
-      for (var j = 0; j < finalSlides.length; j++) {
-        var s = finalSlides[j];
-        s.style.removeProperty('display');
-        s.style.setProperty('height', targetH + 'px', 'important');
-        s.style.setProperty('max-height', targetH + 'px', 'important');
-        s.style.setProperty('overflow', 'hidden', 'important');
-        s.classList.remove('active');
+      var fin = ss.querySelectorAll('.slide');
+      for (var j = 0; j < fin.length; j++) {
+        fin[j].style.removeProperty('display');
+        fin[j].style.setProperty('height', targetH + 'px', 'important');
+        fin[j].style.setProperty('max-height', targetH + 'px', 'important');
+        fin[j].style.setProperty('overflow', 'hidden', 'important');
+        fin[j].classList.remove('active');
       }
-      finalSlides[0].classList.add('active');
+      fin[0].classList.add('active');
 
       // Update slide numbers
-      for (var k = 0; k < finalSlides.length; k++) {
-        var num = finalSlides[k].querySelector('.s-num');
+      for (var k = 0; k < fin.length; k++) {
+        var num = fin[k].querySelector('.s-num');
         if (num) {
           var n = k + 1;
-          num.textContent = (n < 10 ? '0' : '') + n + ' / ' + finalSlides.length;
+          num.textContent = (n < 10 ? '0' : '') + n + ' / ' + fin.length;
         }
       }
 
       // Rebuild navigation
-      slides = finalSlides;
-      total = finalSlides.length;
+      slides = fin;
+      total = fin.length;
       cur = 0;
-
       dots.innerHTML = '';
       for (var d = 0; d < total; d++) {
         var dot = document.createElement('div');
         dot.className = 'dot' + (d === 0 ? ' active' : '');
-        dot.onclick = (function(idx) { return function() { goTo(idx); }; })(d);
+        dot.onclick = (function(x) { return function() { goTo(x); }; })(d);
         dots.appendChild(dot);
       }
       document.getElementById('prevBtn').disabled = true;
       document.getElementById('nextBtn').disabled = total <= 1;
     }
 
-    /* Try to split one slide. Returns the new continuation slide, or null. */
+    /* ── Dispatch to the right split strategy ── */
     function trySplit(slide, targetH) {
-      var slideTop = slide.getBoundingClientRect().top;
+      var sTop = slide.getBoundingClientRect().top;
       var children = Array.from(slide.children);
 
-      // Find footer (last .s-footer)
+      // Find footer
       var footer = null;
       for (var i = children.length - 1; i >= 0; i--) {
         if (children[i].classList.contains('s-footer')) { footer = children[i]; break; }
       }
 
-      // Find header (may be nested inside .col-l)
+      // Find header (may be inside .col-l)
       var header = slide.querySelector('.s-header');
 
-      // Content = everything except footer
-      var content = children.filter(function(el) { return el !== footer; });
+      // Column-layout slides
+      if (slide.classList.contains('slide-split')) {
+        return splitCols(slide, header, footer, targetH, sTop);
+      }
 
-      // Disclosure / risk slides — split at paragraph boundaries
+      // Disclosure / risk slides
       var discText = slide.querySelector('.disclosure-text');
       if (discText && discText.querySelectorAll('p').length > 1) {
-        return splitParagraphs(slide, header, footer, discText, targetH, slideTop);
+        return splitParas(header, footer, discText, targetH, sTop);
       }
 
-      // Generic split: find first content child whose bottom exceeds the limit
-      var footerH = footer ? footer.offsetHeight + 15 : 15;
-      var limit = targetH - footerH;
-      var splitIdx = -1;
-
-      for (var i = 0; i < content.length; i++) {
-        var rect = content[i].getBoundingClientRect();
-        if (rect.bottom - slideTop > limit) { splitIdx = i; break; }
-      }
-
-      // Can't split if nothing overflows or only the header overflows
-      if (splitIdx <= 0) return null;
-      if (splitIdx === 1 && content[0] === header) return null;
-
-      // Build continuation slide
-      var cont = document.createElement('div');
-      cont.className = 'slide slide-stack';
-      cont.style.justifyContent = 'flex-start';
-
-      if (header) cont.appendChild(header.cloneNode(true));
-
-      // Move overflowing elements (skip the header itself if it's in content)
-      var toMove = content.slice(splitIdx).filter(function(el) { return el !== header; });
-      toMove.forEach(function(el) { cont.appendChild(el); });
-
-      if (footer) cont.appendChild(footer.cloneNode(true));
-      return cont;
+      // Normal slides
+      var content = children.filter(function(el) { return el !== footer; });
+      return splitContent(header, footer, content, targetH, sTop);
     }
 
-    /* Split a disclosure/risk slide at paragraph boundaries. */
-    function splitParagraphs(slide, header, footer, discText, targetH, slideTop) {
-      var paras = Array.from(discText.querySelectorAll('p'));
-      var footerH = footer ? footer.offsetHeight + 15 : 15;
-      var limit = targetH - footerH;
+    /* ── Split normal slides ──
+       First tries at direct-child boundaries. If the overflowing
+       element starts within the frame (e.g. a grid), looks inside
+       it to split among ITS children so we keep as much on-screen
+       as possible. */
+    function splitContent(header, footer, content, targetH, sTop) {
+      var fH = footer ? footer.offsetHeight + 15 : 15;
+      var lim = targetH - fH;
 
-      var splitAt = -1;
-      for (var i = 0; i < paras.length; i++) {
-        if (paras[i].getBoundingClientRect().bottom - slideTop > limit) { splitAt = i; break; }
+      // Find first child whose bottom exceeds the limit
+      var idx = -1;
+      for (var i = 0; i < content.length; i++) {
+        if (content[i].getBoundingClientRect().bottom - sTop > lim) { idx = i; break; }
       }
-      if (splitAt <= 0) return null;
+      if (idx < 0) return null;
+
+      // Index of the first "real" content (skip header)
+      var first = (content[0] === header) ? 1 : 0;
+
+      // Only the header (or nothing) fits — dig inside first content element
+      if (idx <= first) {
+        var el = content[first];
+        if (!el || el === header) return null;
+        return splitInside(header, footer, el, content.slice(first + 1), targetH, sTop, lim);
+      }
+
+      // The overflowing element starts within the frame — try splitting inside it
+      // so we keep its earlier children on this slide
+      var overEl = content[idx];
+      if (overEl.getBoundingClientRect().top - sTop < lim && overEl.children.length > 1) {
+        var inner = splitInside(header, footer, overEl, content.slice(idx + 1), targetH, sTop, lim);
+        if (inner) return inner;
+      }
+
+      // Fallback: move everything from idx onward
+      return makeCont(header, footer,
+        content.slice(idx).filter(function(el) { return el !== header; }));
+    }
+
+    /* ── Split column-layout slides ── */
+    function splitCols(slide, header, footer, targetH, sTop) {
+      var colL = slide.querySelector('.col-l');
+      var colR = slide.querySelector('.col-r');
+      var fH = footer ? footer.offsetHeight + 15 : 15;
+      var lim = targetH - fH;
+
+      // If col-r exists and overflows, move its children to a continuation
+      if (colR && colR.getBoundingClientRect().bottom - sTop > lim) {
+        var cont = makeCont(header, footer, []);
+        // Insert col-r's children before the footer in the continuation
+        var ftrInCont = cont.querySelector('.s-footer');
+        while (colR.firstChild) cont.insertBefore(colR.firstChild, ftrInCont);
+        colR.remove();
+        return cont;
+      }
+
+      // col-l itself overflows (col-r already gone or non-existent)
+      if (colL && colL.getBoundingClientRect().bottom - sTop > lim) {
+        var hdrInCol = colL.querySelector('.s-header');
+        var items = Array.from(colL.children).filter(function(el) { return el !== hdrInCol; });
+        var si = -1;
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].getBoundingClientRect().bottom - sTop > lim) { si = i; break; }
+        }
+        if (si <= 0) return null;
+        var cont = makeCont(hdrInCol || header, footer, []);
+        var ftrInCont = cont.querySelector('.s-footer');
+        for (var j = si; j < items.length; j++) cont.insertBefore(items[j], ftrInCont);
+        return cont;
+      }
+
+      return null;
+    }
+
+    /* ── Split inside an overflowing container (grid, div, etc.) ── */
+    function splitInside(header, footer, container, rest, targetH, sTop, lim) {
+      var kids = Array.from(container.children);
+      if (kids.length <= 1) return null;
+
+      var si = -1;
+      for (var i = 0; i < kids.length; i++) {
+        if (kids[i].getBoundingClientRect().bottom - sTop > lim) { si = i; break; }
+      }
+      if (si <= 0) return null;
+
+      // Build continuation: header + overflowing kids + remaining siblings + footer
+      var moved = [];
+      for (var j = si; j < kids.length; j++) moved.push(kids[j]);
+      rest.forEach(function(el) { moved.push(el); });
+      return makeCont(header, footer, moved);
+    }
+
+    /* ── Split disclosure / risk slides at <p> boundaries ── */
+    function splitParas(header, footer, discText, targetH, sTop) {
+      var paras = Array.from(discText.querySelectorAll('p'));
+      var fH = footer ? footer.offsetHeight + 15 : 15;
+      var lim = targetH - fH;
+
+      var si = -1;
+      for (var i = 0; i < paras.length; i++) {
+        if (paras[i].getBoundingClientRect().bottom - sTop > lim) { si = i; break; }
+      }
+      if (si <= 0) return null;
 
       var cont = document.createElement('div');
       cont.className = 'slide slide-stack';
       cont.style.justifyContent = 'flex-start';
-
       if (header) cont.appendChild(header.cloneNode(true));
 
-      // New card with the remaining paragraphs
       var card = document.createElement('div');
       card.className = 'card';
       card.style.cssText = 'padding:24px; margin-bottom:auto;';
       var dt = document.createElement('div');
       dt.className = 'disclosure-text';
       dt.style.cssText = 'font-size:9.5px; line-height:1.7;';
-      for (var j = splitAt; j < paras.length; j++) dt.appendChild(paras[j]);
+      for (var j = si; j < paras.length; j++) dt.appendChild(paras[j]);
       card.appendChild(dt);
       cont.appendChild(card);
 
@@ -1278,11 +1368,15 @@
       return cont;
     }
 
-    // Run after fonts load so measurements are accurate
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(run);
-    } else {
-      window.addEventListener('load', run);
+    /* ── Helper: create a continuation slide ── */
+    function makeCont(header, footer, elements) {
+      var c = document.createElement('div');
+      c.className = 'slide slide-stack';
+      c.style.justifyContent = 'flex-start';
+      if (header) c.appendChild(header.cloneNode(true));
+      elements.forEach(function(el) { c.appendChild(el); });
+      if (footer) c.appendChild(footer.cloneNode(true));
+      return c;
     }
   })();
 </script>
