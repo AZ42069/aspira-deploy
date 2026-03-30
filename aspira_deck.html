@@ -1076,6 +1076,17 @@
     dots.appendChild(d);
   }
 
+  function reportHeight() {
+    var active = document.querySelector('.slide.active');
+    if (active && window.parent !== window) {
+      // Small delay so layout settles
+      setTimeout(function(){
+        var h = active.scrollHeight + 20; // small buffer
+        window.parent.postMessage({ type: 'deckHeight', height: h }, '*');
+      }, 50);
+    }
+  }
+
   function goTo(n) {
     slides[cur].classList.remove('active');
     dots.children[cur].classList.remove('active');
@@ -1085,6 +1096,7 @@
     document.getElementById('prevBtn').disabled = cur === 0;
     document.getElementById('nextBtn').disabled = cur === total - 1;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    reportHeight();
   }
 
   function changeSlide(d) {
@@ -1104,6 +1116,11 @@
     const dx = e.changedTouches[0].clientX - tsx;
     if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
   }, { passive: true });
+
+  // Report initial height after load
+  window.addEventListener('load', function(){ reportHeight(); });
+  setTimeout(function(){ reportHeight(); }, 500);
+  setTimeout(function(){ reportHeight(); }, 1500);
 </script>
 
 </body>

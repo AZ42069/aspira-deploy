@@ -728,7 +728,8 @@
             // On mobile: render the iframe at the phone's actual width so the deck's
             // own mobile CSS (vw units) kicks in at full size — no scaling needed.
             var iframeW = containerW;
-            var slideH = iframeW * 1.15; // compact portrait ratio
+            // Use dynamic height from postMessage if available, else default
+            var slideH = window._deckSlideHeight || Math.round(iframeW * 1.15);
             iframe.style.width = iframeW + 'px';
             iframe.style.height = slideH + 'px';
             scaler.style.transform = 'none';
@@ -757,6 +758,14 @@
         window.addEventListener('resize', scaleDeck);
         setTimeout(scaleDeck, 300);
         setTimeout(scaleDeck, 1000);
+
+        // Listen for deck slide height changes (mobile auto-resize)
+        window.addEventListener('message', function(e) {
+          if (e.data && e.data.type === 'deckHeight' && window.innerWidth <= 768) {
+            window._deckSlideHeight = e.data.height;
+            scaleDeck();
+          }
+        });
       </script>
 
       <div id="hero-cta-desktop" style="text-align:center; margin: 0 auto 1.5rem;">
