@@ -728,7 +728,7 @@
             // On mobile: render the iframe at the phone's actual width so the deck's
             // own mobile CSS (vw units) kicks in at full size — no scaling needed.
             var iframeW = containerW;
-            var slideH = iframeW * 1.6; // ~16:10 tall portrait ratio
+            var slideH = iframeW * 1.15; // compact portrait ratio
             iframe.style.width = iframeW + 'px';
             iframe.style.height = slideH + 'px';
             scaler.style.transform = 'none';
