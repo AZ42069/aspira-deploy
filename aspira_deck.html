@@ -500,7 +500,16 @@
     [style*="font-size:56px"] { font-size: 12vw !important; }
     [style*="font-size:52px"] { font-size: 9vw !important; }
   }
+
+  /* Embedded in iframe — remove body padding and background */
+  body.embedded { padding: 0 !important; background: #fff !important; }
+  body.embedded .slideshow { width: 100% !important; }
+  body.embedded .slide { border: none !important; }
+  body.embedded .nav { display: none !important; }
 </style>
+<script>
+  if (window !== window.top) document.addEventListener('DOMContentLoaded', function(){ document.body.classList.add('embedded'); });
+</script>
 </head>
 <body>
 
@@ -539,7 +548,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">02 / 10</span>
+      <span class="s-num">02 / 12</span>
     </div>
     <span class="tag">The Opportunity</span>
     <h2>Why <span class="gold">Private Credit</span>?</h2>
@@ -583,7 +592,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">03 / 10</span>
+      <span class="s-num">03 / 12</span>
     </div>
     <span class="tag">About Aspira Capital</span>
     <h2 style="margin-bottom:10px;">Funding Underserved<br>Small Businesses <span class="gold">Nationwide</span></h2>
@@ -632,7 +641,7 @@
           <div class="sep"></div>
           <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
         </div>
-        <span class="s-num">04 / 10</span>
+        <span class="s-num">04 / 12</span>
       </div>
       <span class="tag">Portfolio Performance</span>
       <h2 style="font-size:26px;">Static Pool Analysis<br><span class="gold">Jan 2024 – Mar 2026</span></h2>
@@ -722,7 +731,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">05 / 10</span>
+      <span class="s-num">05 / 12</span>
     </div>
     <span class="tag">Investment Structure</span>
     <h2 style="margin-bottom:14px;">How Your Investment <span class="gold">Works</span></h2>
@@ -774,7 +783,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">06 / 10</span>
+      <span class="s-num">06 / 12</span>
     </div>
     <span class="tag">Return Tiers</span>
     <h2>Choose Your <span class="gold">Investment Tier</span></h2>
@@ -838,7 +847,7 @@
           <div class="sep"></div>
           <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
         </div>
-        <span class="s-num">07 / 10</span>
+        <span class="s-num">07 / 12</span>
       </div>
       <img src="images/david-monegro.png" alt="David Monegro" class="leader-photo">
       <div style="text-align:center; margin-top:20px;">
@@ -848,30 +857,34 @@
     </div>
     <div class="col-r" style="padding-left:40px; justify-content:center;">
       <span class="tag">Leadership</span>
-      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px;">
+      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:13px;">Founded Aspira to serve underserved small businesses</div>
+          <div class="body-text" style="font-size:12px;"><strong>20+ years</strong> in financial services, FinTech, payments, and business lending</div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:13px;">Banking, risk management, and alternative finance background</div>
+          <div class="body-text" style="font-size:12px;">Former <strong>SVP & Chief Compliance Officer</strong> (banking institution, NJ) and <strong>VP & Regulatory Compliance Officer</strong> (private bank, NY)</div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:13px;"><strong>Personally invests alongside every investor</strong> — same deal, same structure</div>
+          <div class="body-text" style="font-size:12px;">Expert in credit risk, regulatory risk, BSA/AML compliance</div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:13px;">289-deal active portfolio, $4.62M outstanding receivables</div>
+          <div class="body-text" style="font-size:12px;">Certified Fraud Examiner (CFE), Certified Anti-Money Laundering Specialist (CAMS), Certified Information Privacy Professional (CIPP)</div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:13px;">Full UCC enforcement, third-party collections, daily ACH tracking</div>
+          <div class="body-text" style="font-size:12px;">NJ Bankers Association <strong>New Leaders Award</strong> recipient</div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:10px;">
+          <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
+          <div class="body-text" style="font-size:12px;"><strong>Personally invests alongside every investor</strong> — same deal, same structure</div>
         </div>
       </div>
-      <div class="quote-block">
-        <div class="quote-text">"Our team invests alongside each opportunity — same deal, same structure. I have my own money in this strategy. I want you to invest alongside mine."</div>
+      <div class="quote-block" style="padding:14px 20px;">
+        <div class="quote-text" style="font-size:12px;">"Our team invests alongside each opportunity — same deal, same structure. I have my own money in this strategy. I want you to invest alongside mine."</div>
         <div class="quote-attr">— David Monegro</div>
       </div>
     </div>
@@ -888,7 +901,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">08 / 10</span>
+      <span class="s-num">08 / 12</span>
     </div>
     <span class="tag">Investor Testimonials</span>
     <h2>What Our <span class="gold">Investors</span> Say</h2>
@@ -922,7 +935,7 @@
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">09 / 10</span>
+      <span class="s-num">09 / 12</span>
     </div>
     <span class="tag">Getting Started</span>
     <h2>How to <span class="gold">Invest</span></h2>
@@ -960,27 +973,84 @@
   <!-- ═══════════════════════════════════════════════════════════
        SLIDE 10 — DISCLOSURES
        ═══════════════════════════════════════════════════════════ -->
-  <div class="slide slide-stack" style="justify-content:center;">
+  <div class="slide slide-stack" style="justify-content:flex-start;">
     <div class="s-header">
       <div class="s-header-logos">
         <img src="images/aspira-logo.png" alt="Aspira">
         <div class="sep"></div>
         <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
       </div>
-      <span class="s-num">10 / 10</span>
+      <span class="s-num">10 / 12</span>
     </div>
     <span class="tag">Important Disclosures</span>
-    <h2 style="font-size:24px;">Legal <span class="gold">Disclosures</span></h2>
-    <div class="card" style="padding:32px; margin-bottom:auto;">
-      <div class="disclosure-text">
-        <p style="margin-bottom:14px;">This presentation has been prepared by <strong>Zastre & Co LLC</strong> for informational purposes only and is intended solely for <strong>accredited investors</strong> as defined under Rule 501 of Regulation D of the Securities Act of 1933, as amended.</p>
-        <p style="margin-bottom:14px;"><strong>This does not constitute an offer to sell or a solicitation of an offer to buy any security.</strong> No offering of securities is being made except pursuant to a definitive subscription agreement and in compliance with applicable federal and state securities laws.</p>
-        <p style="margin-bottom:14px;">Investment involves significant risk including possible loss of principal. Target returns of 12–18% are forward-looking projections only and are <strong>not guaranteed</strong>. Past performance is not indicative of future results. The information contained herein is based on management's current expectations and assumptions, and actual results may differ materially.</p>
-        <p style="margin-bottom:14px;">Securities placed through <strong>Zastre & Co LLC, Series 82 FINRA licensed.</strong> Investors should consult their own legal, tax, and financial advisors before making any investment decision.</p>
-        <p>This material is confidential and may not be reproduced, distributed, or disclosed to any third party without the prior written consent of Zastre & Co LLC and Aspira Capital Group LLC.</p>
+    <h2 style="font-size:22px; margin-bottom:14px;">Legal <span class="gold">Disclosures</span></h2>
+    <div class="card" style="padding:24px; margin-bottom:auto; overflow-y:auto;">
+      <div class="disclosure-text" style="font-size:9.5px; line-height:1.7;">
+        <p style="margin-bottom:10px;"><strong>No Offer or Solicitation.</strong> This presentation has been prepared by Zastre & Co LLC for informational purposes only and is intended solely for <strong>accredited investors</strong> as defined under Rule 501 of Regulation D of the Securities Act of 1933, as amended. This does not constitute an offer to sell or a solicitation of an offer to buy any security. No offering of securities is being made except pursuant to a definitive subscription agreement and offering memorandum (the "Offering Documents") and in compliance with applicable federal and state securities laws. In the event of a conflict between this presentation and the Offering Documents, the Offering Documents shall control.</p>
+        <p style="margin-bottom:10px;"><strong>Securities Not Registered.</strong> The securities described herein have not been and will not be registered under the Securities Act of 1933, as amended, or any state securities laws, and may not be offered or sold absent registration or an applicable exemption from registration. Neither the SEC nor any state securities commission has approved or disapproved of these securities or determined if this presentation is truthful or complete.</p>
+        <p style="margin-bottom:10px;"><strong>Forward-Looking Statements.</strong> This presentation contains forward-looking statements including target returns, expected distributions, and business strategy. These are based on current expectations and assumptions and involve known and unknown risks and uncertainties. Forward-looking statements are not guarantees of future performance. Actual results may differ materially. Target returns of 12–18% are illustrative only and are <strong>NOT guaranteed</strong>.</p>
+        <p style="margin-bottom:10px;"><strong>Risk Factors.</strong> Investment involves a high degree of risk including: (i) possible loss of entire principal; (ii) merchant default and inability to recover advances despite UCC liens; (iii) concentration risk in a single asset class; (iv) limited liquidity — there is no public market for these securities; (v) regulatory risk including changes to lending, collections, or usury laws; (vi) reliance on Aspira Capital Group management; (vii) economic conditions that could increase default rates; (viii) operational risk including fraud and cybersecurity incidents. This list is not exhaustive.</p>
+        <p style="margin-bottom:10px;"><strong>Past Performance.</strong> Past performance is not indicative of future results. All portfolio data, ROIC figures, and collection data reflect January 2024 – March 2026 and are subject to change. Historical data should not be construed as a guarantee or prediction of future returns.</p>
+        <p style="margin-bottom:10px;"><strong>No Guarantee of Returns.</strong> Target annual returns and monthly distributions are projections only and NOT guaranteed. Actual returns may be lower, and investors may receive no distributions. The 12% first-loss cash reserve is a target, not a guarantee. UCC liens do not guarantee recovery.</p>
+        <p style="margin-bottom:10px;"><strong>Placement Agent.</strong> Securities placed through <strong>Zastre & Co LLC</strong> (FINRA Series 82 licensed). Zastre & Co LLC receives compensation in connection with placement and may have conflicts of interest. Zastre & Co LLC is not a registered investment adviser and does not provide investment advice.</p>
+        <p style="margin-bottom:10px;"><strong>Not Investment Advice.</strong> Nothing herein constitutes investment, legal, tax, or accounting advice. Aspira Capital Group LLC is not a registered investment adviser, broker-dealer, or bank. Investors should consult their own independent advisors and review the Offering Documents before investing.</p>
+        <p style="margin-bottom:10px;"><strong>SPV Structure.</strong> Investments are made through a Special Purpose Vehicle legally separate from Aspira Capital Group LLC. SPV investors bear the full risk of loss on the underlying portfolio.</p>
+        <p><strong>Confidentiality.</strong> This material is confidential and may not be reproduced, distributed, or disclosed to any third party without prior written consent of Zastre & Co LLC and Aspira Capital Group LLC.</p>
       </div>
     </div>
-    <div class="s-footer"><span class="gold-text">Aspira Capital Group</span><span>Confidential</span></div>
+    <div class="s-footer"><span class="gold-text">Aspira Capital Group</span><span>Confidential &mdash; For Accredited Investors Only</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SLIDE 11 — RISK FACTORS (CONTINUED)
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="slide slide-stack" style="justify-content:flex-start;">
+    <div class="s-header">
+      <div class="s-header-logos">
+        <img src="images/aspira-logo.png" alt="Aspira">
+        <div class="sep"></div>
+        <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:20px; width:auto;">
+      </div>
+      <span class="s-num">11 / 12</span>
+    </div>
+    <span class="tag">Risk Factors</span>
+    <h2 style="font-size:22px; margin-bottom:14px;">Material <span class="gold">Risk Factors</span></h2>
+    <div class="card" style="padding:24px; margin-bottom:auto; overflow-y:auto;">
+      <div class="disclosure-text" style="font-size:9.5px; line-height:1.7;">
+        <p style="margin-bottom:10px;"><strong>Loss of Principal.</strong> Investors may lose all or a substantial portion of their investment. There is no guarantee that any investor will receive a return of capital.</p>
+        <p style="margin-bottom:10px;"><strong>Illiquidity.</strong> There is no public trading market for the securities offered. Investors may not be able to sell or transfer their interests and should be prepared to hold the investment for an indefinite period. This investment is suitable only for persons who have no need for liquidity in their investment.</p>
+        <p style="margin-bottom:10px;"><strong>Merchant Default Risk.</strong> The SPV's returns depend on the ability of small business merchants to repay their advances through daily ACH remittances. Merchants may default due to business failure, economic downturn, fraud, or other factors. While UCC liens are filed on merchant receivables, recovery through legal enforcement or collections may be partial, delayed, or unsuccessful.</p>
+        <p style="margin-bottom:10px;"><strong>Concentration Risk.</strong> The portfolio is concentrated in a single asset class (merchant cash advances to U.S. small businesses). Adverse conditions affecting this sector, including regulatory changes, economic recession, or increased competition, could materially impair returns.</p>
+        <p style="margin-bottom:10px;"><strong>Regulatory and Legal Risk.</strong> The MCA industry is subject to evolving federal and state regulations. Changes in lending laws, usury statutes, collections practices, or the legal characterization of MCAs (e.g., as loans rather than purchases of receivables) could adversely affect operations, returns, or the ability to enforce contracts.</p>
+        <p style="margin-bottom:10px;"><strong>Key Person Risk.</strong> Aspira Capital Group LLC is substantially dependent on its founder and CEO, David Monegro, and a small management team. The loss or unavailability of key personnel could materially affect operations and performance.</p>
+        <p style="margin-bottom:10px;"><strong>Limited Operating History.</strong> Aspira Capital Group LLC was founded in 2023 and has a limited operating history. The portfolio data presented covers a relatively short period (January 2024 – March 2026). There can be no assurance that historical performance will continue.</p>
+        <p style="margin-bottom:10px;"><strong>Conflicts of Interest.</strong> The founder and management of Aspira Capital Group LLC invest alongside SPV investors, which aligns interests in some respects but may also create conflicts regarding deal selection, portfolio management, and distributions. Zastre & Co LLC, as placement agent, receives compensation that may influence its recommendations.</p>
+        <p><strong>Tax Considerations.</strong> An investment may have material tax consequences. Investors should consult their own tax advisors regarding the specific tax consequences of investing, including federal, state, local, and foreign tax implications.</p>
+      </div>
+    </div>
+    <div class="s-footer"><span class="gold-text">Aspira Capital Group</span><span>Confidential &mdash; For Accredited Investors Only</span></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SLIDE 12 — CONTACT / CLOSING
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="slide slide-center" style="justify-content:center; text-align:center;">
+    <div style="position:absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 30% 20%, rgba(184,148,63,0.04) 0%, transparent 50%);"></div>
+    <div style="position:relative; z-index:1; display:flex; flex-direction:column; align-items:center;">
+      <div style="display:flex; align-items:center; gap:20px; margin-bottom:40px;">
+        <img src="images/aspira-logo.png" alt="Aspira Capital" style="height:44px; width:auto;">
+        <div style="width:1px; height:28px; background:var(--border);"></div>
+        <img src="images/zastre-gold.png" alt="Zastre & Co" style="height:22px; width:auto;">
+      </div>
+      <div style="font-family:'Playfair Display',serif; font-size:36px; font-weight:700; color:var(--navy); margin-bottom:12px;">Thank You</div>
+      <div style="font-size:14px; color:var(--text-muted); margin-bottom:32px;">For Accredited Investors Only &middot; Confidential</div>
+      <div class="cta-bar" style="flex-direction:column; gap:8px; padding:24px 48px;">
+        <div style="font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; opacity:0.8;">Schedule a Discovery Call</div>
+        <div style="font-size:16px;">alex@zastreco.com &middot; benjamin@zastreco.com</div>
+      </div>
+      <div style="margin-top:32px; font-size:10px; color:var(--text-muted); max-width:600px; line-height:1.6;">Securities placed through Zastre & Co LLC (FINRA Series 82 licensed). This material is confidential and for the sole use of the intended recipient. Not for reproduction or third-party distribution. Neither the SEC nor any state securities commission has approved these securities or this presentation.</div>
+    </div>
+    <div class="s-footer"><span class="gold-text">Aspira Capital Group</span><span>Confidential &mdash; For Accredited Investors Only</span></div>
   </div>
 
 </div>

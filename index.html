@@ -7,6 +7,11 @@
 <title>Aspira Capital Group | Private Credit Investment — 12-18% Target Returns</title>
 <meta name="description" content="Invest in private credit alongside institutional funds. Target 12-18% annual returns. Monthly distributions. UCC-secured. For accredited investors.">
 
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/jytt0ixlyi.js" async type="module"></script>
+<script src="https://fast.wistia.com/embed/q95thps6yo.js" async type="module"></script>
+<script src="https://fast.wistia.com/embed/kuvvlr6s6h.js" async type="module"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -98,7 +103,20 @@
     .hero { padding-top: 6.5rem !important; padding-bottom: 2rem !important; }
     #deck-wrap { margin-bottom: 1rem !important; }
     .hero-sub, .hero p { margin-bottom: 1rem !important; }
-    .hero-badge { font-size: 0.58rem !important; letter-spacing: 0.03em !important; padding: 0.28rem 0.7rem !important; white-space: nowrap !important; margin-top: 0.75rem !important; }
+    .hero-sub { font-size: 0.9375rem !important; }
+    .hero-badge { font-size: 0.55rem !important; letter-spacing: 0.03em !important; padding: 0.28rem 0.7rem !important; white-space: nowrap !important; margin-top: 0.75rem !important; }
+    .hero h1 { font-size: 1.75rem !important; }
+    .hero-stats { gap: 1.25rem !important; }
+    .hero-stat-num { font-size: 1.35rem !important; }
+    .hero-stat-label { font-size: 0.6rem !important; }
+    .navbar-logo { height: 34px !important; }
+    .navbar-cta { font-size: 0.7rem !important; padding: 0.4rem 0.85rem !important; }
+    section { padding: 3rem 0 !important; }
+    h2 { font-size: 1.5rem !important; }
+  }
+  @media (max-width: 480px) {
+    .hero-badge { white-space: normal !important; max-width: 90vw; }
+    .hero-stats { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
   }
   .hero-badge {
     display: inline-block;
@@ -113,6 +131,7 @@
     text-transform: uppercase;
     margin-bottom: 1.5rem;
   }
+  .hero .container { max-width: 1200px; }
   .hero h1 { max-width: 720px; margin: 0 auto 1rem; }
   .hero-sub {
     font-size: 1.0625rem;
@@ -463,6 +482,58 @@
     display: flex; align-items: center; justify-content: center;
     color: rgba(255,255,255,0.4); font-size: 0.875rem; font-weight: 500;
   }
+  /* Vertical video testimonial layout */
+  .testimonial-video-row {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin: 2rem 0;
+  }
+  .testimonial-video-row .video-card { max-width: 340px; }
+  .testimonial-quote-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .testimonial-quote-card .big-quote {
+    font-family: var(--font-display);
+    font-size: 1.625rem;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.45;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-quote-card .big-quote::before {
+    content: '\201C';
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--gold);
+    line-height: 0;
+    vertical-align: -0.4em;
+    margin-right: 0.15em;
+  }
+  wistia-player[media-id='jytt0ixlyi']:not(:defined) {
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/jytt0ixlyi/swatch');
+    display: block; filter: blur(5px); padding-top: 177.78%;
+  }
+  wistia-player[media-id='q95thps6yo']:not(:defined) {
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/q95thps6yo/swatch');
+    display: block; filter: blur(5px); padding-top: 177.78%;
+  }
+  wistia-player[media-id='kuvvlr6s6h']:not(:defined) {
+    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/kuvvlr6s6h/swatch');
+    display: block; filter: blur(5px); padding-top: 177.78%;
+  }
+  @media (max-width: 768px) {
+    .testimonial-video-row {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .testimonial-video-row .video-card { max-width: 300px; width: 100%; }
+    .testimonial-quote-card .big-quote { font-size: 1.25rem; }
+  }
 
   /* === FAQ === */
   .faq-item { padding: 1.25rem 0; border-bottom: 1px solid var(--gray-100); }
@@ -479,6 +550,12 @@
   .footer-disclaimer {
     max-width: 700px; margin: 0 auto;
     padding-top: 1rem;
+  }
+
+  /* === RESPONSIVE GRIDS === */
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 640px) {
+    .grid-3 { grid-template-columns: 1fr; }
   }
 
   /* === DIVIDER === */
@@ -538,6 +615,32 @@
     .tc-btn-prev { left: -14px; }
     .tc-btn-next { right: -14px; }
   }
+
+  /* === COMPREHENSIVE MOBILE === */
+  @media (max-width: 768px) {
+    .container, .container-wide { padding: 0 1rem; }
+    .cta-btn { font-size: 0.875rem; padding: 0.75rem 1.75rem; }
+    .offer-box { padding: 2rem 1.25rem; }
+    .offer-price { font-size: 2.5rem; }
+    .gold-banner { font-size: 0.8125rem; padding: 1rem 1.25rem; }
+    .footer-disclaimer { padding: 0.5rem; }
+    .footer-disclaimer p { font-size: 0.625rem; }
+    .video-placeholder { font-size: 0.75rem; }
+    .faq-q { font-size: 0.875rem; }
+    .faq-a { font-size: 0.8125rem; }
+    .leader-section { gap: 1.5rem; }
+    .quote-box { padding: 1rem 1.25rem; }
+    .prot-item { padding: 0.75rem 1rem; }
+  }
+  @media (max-width: 480px) {
+    .cta-btn { font-size: 0.8125rem; padding: 0.7rem 1.5rem; }
+    .cta-sub { font-size: 0.6875rem; }
+    .stats-row { grid-template-columns: 1fr 1fr !important; }
+    .stat-num { font-size: 1.5rem; }
+    .tier-rate { font-size: 1.75rem; }
+    .tier-amount { font-size: 1.25rem; }
+    .compare-price { font-size: 1.75rem; }
+  }
 </style>
 </head>
 
@@ -579,10 +682,10 @@
       <h1>Earn 12&ndash;18% Annual Returns<br>in <span class="text-gold">Private Credit</span></h1>
       <p class="hero-sub">Monthly distributions. UCC-secured on receivables. Non-correlated to public markets. Target 12&ndash;18% annual returns with Aspira Capital Group.</p>
 
-      <div id="deck-wrap" style="position:relative; margin: 0 auto 2.5rem; max-width: 900px; overflow:visible;">
+      <div id="deck-wrap" style="position:relative; margin: 0 auto 2.5rem; max-width: 1140px; overflow:visible;">
         <div id="deck-outer" style="border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(15,27,45,0.14); border: 3px solid var(--gold); outline: 6px solid rgba(184,148,63,0.12);">
           <div id="deck-scaler" style="transform-origin:top left; line-height:0;">
-            <iframe src="aspira_deck.html" id="deck-iframe" style="width:1200px; height:700px; border:none; display:block;" title="Aspira Capital Investor Deck"></iframe>
+            <iframe src="aspira_deck.html" id="deck-iframe" style="width:1280px; height:720px; border:none; display:block;" title="Aspira Capital Investor Deck"></iframe>
           </div>
         </div>
         <button id="deck-next-btn" onclick="deckNav(1)" style="display:none;position:absolute;right:-20px;top:50%;transform:translateY(-50%);width:40px;height:56px;border-radius:20px;border:none;background:var(--gold);font-size:26px;color:#fff;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(184,148,63,0.5);z-index:10;-webkit-tap-highlight-color:transparent;">&#8250;</button>
@@ -618,16 +721,17 @@
           var iframe = document.getElementById('deck-iframe');
           if (!outer || !scaler || !iframe) return;
           var isMobile = window.innerWidth <= 768;
-          var slideH = isMobile ? 950 : 760;
+          var isSmall = window.innerWidth <= 480;
+          var slideH = isSmall ? 1400 : (isMobile ? 1100 : 720);
           var containerW = isMobile ? window.innerWidth - 32 : (wrap ? wrap.offsetWidth : outer.offsetWidth);
-          var scale = containerW / 1200;
+          var scale = containerW / 1280;
           iframe.style.height = slideH + 'px';
           scaler.style.transform = 'scale(' + scale + ')';
-          scaler.style.width = '1200px';
+          scaler.style.width = '1280px';
           scaler.style.height = (slideH * scale) + 'px';
           outer.style.height = (slideH * scale) + 'px';
           if (wrap) {
-            wrap.style.maxWidth = isMobile ? (containerW + 'px') : '900px';
+            wrap.style.maxWidth = isMobile ? (containerW + 'px') : '1140px';
             wrap.style.marginLeft = 'auto';
             wrap.style.marginRight = 'auto';
           }
@@ -636,6 +740,7 @@
         window.addEventListener('load', scaleDeck);
         window.addEventListener('resize', scaleDeck);
         setTimeout(scaleDeck, 300);
+        setTimeout(scaleDeck, 1000);
       </script>
 
       <div style="text-align:center; margin: 0 auto 1.5rem;">
@@ -922,7 +1027,7 @@
         <div class="stat-item"><span class="stat-num">159%</span><span class="stat-label">ROIC on Closed Deals</span></div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2rem 0;">
+      <div class="grid-3" style="margin: 2rem 0;">
         <div style="background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: 12px; padding: 1.25rem; text-align: center;">
           <span style="font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; color: var(--gold); display: block;">1.65x</span>
           <span style="font-size: 0.6875rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em;">Avg Factor Rate</span>
@@ -937,7 +1042,7 @@
         </div>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="grid-3" style="margin-bottom: 1.5rem;">
         <div style="text-align: center;">
           <span style="font-size: 0.6875rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">2024 Vintage</span>
           <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--navy);">110% ROIC</span>
@@ -1054,7 +1159,8 @@
         <div class="leader-info">
           <h3 style="font-size: 1.375rem; margin-bottom: 0.25rem;">David Monegro</h3>
           <p style="font-size: 0.8125rem; color: var(--gold); font-weight: 600; margin-bottom: 1rem;">Founder &amp; CEO, Aspira Capital Group</p>
-          <p style="color: var(--gray-500); font-size: 0.9375rem;">David founded Aspira to serve underserved small businesses with access to working capital. With a background in banking, risk management, and alternative finance, he oversees a 289-deal active portfolio with $4.62M in outstanding receivables.</p>
+          <p style="color: var(--gray-500); font-size: 0.9375rem;">David is an entrepreneur, investor, and expert risk management professional with <strong style="color: var(--navy);">20+ years</strong> in financial services, FinTech, payments, and business lending. He founded Aspira Capital Group in 2023 after identifying an opportunity to provide micro revenue-based financing to underserved small businesses nationwide.</p>
+          <p style="color: var(--gray-500); font-size: 0.9375rem;">Previously, David served as <strong style="color: var(--navy);">SVP &amp; Chief Compliance Officer</strong> for a banking institution in New Jersey and <strong style="color: var(--navy);">VP &amp; Regulatory Compliance Officer</strong> at a private bank in New York. He is a Certified Fraud Examiner, Certified Anti-Money Laundering Specialist, and Certified Information Privacy Professional &mdash; and a recipient of the <strong style="color: var(--navy);">NJ Bankers Association New Leaders Award</strong>.</p>
           <div class="quote-box" style="margin-top: 1rem;">
             <p>&ldquo;Our team invests alongside each opportunity &mdash; same deal, same structure. I have my own money in this strategy. I want you to invest alongside mine.&rdquo;</p>
             <div class="attr">&mdash; David Monegro</div>
@@ -1072,30 +1178,71 @@
       <p class="text-center" style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;">INVESTOR TESTIMONIALS</p>
       <h2 class="text-center">What Investors Are <span class="text-gold">Saying</span></h2>
 
-      <!-- Video testimonial placeholders -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+      <!-- Alex Vargas Video Testimonial -->
+      <div class="testimonial-video-row">
         <div class="video-card">
-          <div class="video-placeholder" style="border-radius: 16px 16px 0 0;">
-            <!-- VIDEO PLACEHOLDER: Testimonial video 1 -->
-            <span>Video testimonial coming soon</span>
+          <div style="border-radius: 16px 16px 0 0; overflow: hidden;">
+            <wistia-player media-id="jytt0ixlyi" aspect="0.5625"></wistia-player>
           </div>
           <div class="video-card-info">
             <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <p class="testimonial-name"><!-- Investor Name --></p>
-            <p class="testimonial-title"><!-- Investor Title --></p>
-            <div class="testimonial-result"><!-- Result Badge --></div>
+            <p class="testimonial-name">Alex Vargas</p>
+            <p class="testimonial-title">Investor Since 2024</p>
+            <div class="testimonial-result">Returns Surpassed Expectations</div>
           </div>
         </div>
-        <div class="video-card">
-          <div class="video-placeholder" style="border-radius: 16px 16px 0 0;">
-            <!-- VIDEO PLACEHOLDER: Case study video -->
-            <span>Case study video coming soon</span>
+        <div class="testimonial-quote-card">
+          <p class="big-quote">It&rsquo;s more than just the numbers. It&rsquo;s the peace of mind that comes when you believe in the people that are running the show.</p>
+          <p style="color: var(--gray-500); font-size: 0.9375rem; line-height: 1.7;">&ldquo;I invested in 2024 and the returns have been solid &mdash; surpassed my expectations. I&rsquo;ve known David for over 20 years. I can tell you without hesitation that he is someone with truly strong character who genuinely cares. The returns, the leadership, the trust &mdash; that&rsquo;s why I invested in Aspira. That&rsquo;s why I&rsquo;m proud of that decision today.&rdquo;</p>
+          <div style="margin-top: 1rem;">
+            <p class="testimonial-name">Alex Vargas</p>
+            <p class="testimonial-title">Aspira Capital Investor Since 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maria West Video Testimonial -->
+      <div class="testimonial-video-row" style="direction: rtl;">
+        <div class="video-card" style="direction: ltr;">
+          <div style="border-radius: 16px 16px 0 0; overflow: hidden;">
+            <wistia-player media-id="q95thps6yo" aspect="0.5625"></wistia-player>
           </div>
           <div class="video-card-info">
             <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <p class="testimonial-name"><!-- Investor Name --></p>
-            <p class="testimonial-title"><!-- Investor Title --></p>
-            <div class="testimonial-result"><!-- Result Badge --></div>
+            <p class="testimonial-name">Maria West</p>
+            <p class="testimonial-title">Investor Since 2024</p>
+            <div class="testimonial-result">Exceeded Expectations</div>
+          </div>
+        </div>
+        <div class="testimonial-quote-card" style="direction: ltr;">
+          <p class="big-quote">The results have exceeded my expectations. It&rsquo;s been a great decision and I absolutely recommend Aspira Capital to anyone looking to make a smart investment.</p>
+          <p style="color: var(--gray-500); font-size: 0.9375rem; line-height: 1.7;">&ldquo;From the very beginning, the process was smooth, professional, and easy to understand. I&rsquo;m genuinely impressed with the value I&rsquo;ve received.&rdquo;</p>
+          <div style="margin-top: 1rem;">
+            <p class="testimonial-name">Maria West</p>
+            <p class="testimonial-title">Aspira Capital Investor Since 2024</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Samson Barbosa Video Testimonial -->
+      <div class="testimonial-video-row">
+        <div class="video-card">
+          <div style="border-radius: 16px 16px 0 0; overflow: hidden;">
+            <wistia-player media-id="kuvvlr6s6h" aspect="0.5625"></wistia-player>
+          </div>
+          <div class="video-card-info">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <p class="testimonial-name">Samson Barbosa</p>
+            <p class="testimonial-title">Investor Since 2024</p>
+            <div class="testimonial-result">Higher Returns Than Most</div>
+          </div>
+        </div>
+        <div class="testimonial-quote-card">
+          <p class="big-quote">The returns are much higher than you would get in most places. I couldn&rsquo;t be happier with the process and how everything works.</p>
+          <p style="color: var(--gray-500); font-size: 0.9375rem; line-height: 1.7;">&ldquo;I started investing with Aspira because I wanted to diversify my portfolio and earn more passive income. I&rsquo;ve been extremely satisfied with the returns.&rdquo;</p>
+          <div style="margin-top: 1rem;">
+            <p class="testimonial-name">Samson Barbosa</p>
+            <p class="testimonial-title">Aspira Capital Investor Since 2024</p>
           </div>
         </div>
       </div>
@@ -1249,12 +1396,38 @@
       </div>
       <p>&copy; 2026 Aspira Capital Group LLC &middot; Placed by Zastre &amp; Co LLC</p>
       <div class="footer-disclaimer">
+
+        <p><strong style="color: var(--gray-600);">IMPORTANT DISCLOSURES &mdash; PLEASE READ CAREFULLY</strong></p>
+
+        <p><strong style="color: var(--gray-600);">No Offer or Solicitation.</strong> This website and its contents are for informational purposes only and do not constitute an offer to sell, or a solicitation of an offer to buy, any securities. No offer or sale of securities will be made in any jurisdiction in which such offer or sale would be unlawful. Any offering of securities will be made only by means of a definitive offering memorandum or subscription agreement (the &ldquo;Offering Documents&rdquo;), which will contain the complete terms of the offering, including all material risk factors. In the event of a conflict between the information on this website and the Offering Documents, the Offering Documents shall control.</p>
+
+        <p><strong style="color: var(--gray-600);">Accredited Investors Only.</strong> Any securities described herein are offered exclusively to &ldquo;accredited investors&rdquo; as defined under Rule 501 of Regulation D promulgated under the Securities Act of 1933, as amended. The securities have not been and will not be registered under the Securities Act of 1933, as amended, or any state securities laws, and may not be offered or sold in the United States absent registration or an applicable exemption from registration requirements.</p>
+
+        <p><strong style="color: var(--gray-600);">Forward-Looking Statements.</strong> This website contains forward-looking statements, including statements regarding target returns of 12&ndash;18% annually, expected distributions, portfolio performance, and business strategy. These statements are based on current expectations and assumptions and involve known and unknown risks and uncertainties. Forward-looking statements are not guarantees of future performance. Actual results may differ materially from those projected. Target returns are illustrative only and are NOT guaranteed. There can be no assurance that any investment will achieve its objectives or avoid losses.</p>
+
+        <p><strong style="color: var(--gray-600);">Risk Factors.</strong> Investment in merchant cash advance (&ldquo;MCA&rdquo;) portfolios and related special purpose vehicles involves a high degree of risk, including but not limited to: (i) possible loss of entire principal invested; (ii) merchant default and inability to recover advances despite UCC liens; (iii) concentration risk in a single asset class; (iv) limited liquidity &mdash; there is no public market for these securities and investors may not be able to liquidate their investment when desired; (v) regulatory risk, including changes to federal or state lending, collections, or usury laws that could adversely affect MCA operations; (vi) lack of diversification; (vii) reliance on the management team of Aspira Capital Group LLC; (viii) economic and market risk that could increase merchant default rates; and (ix) operational risk including fraud, cybersecurity incidents, and technology failures. This list is not exhaustive. Prospective investors should carefully review all risk factors set forth in the Offering Documents.</p>
+
+        <p><strong style="color: var(--gray-600);">Past Performance.</strong> Past performance is not indicative of future results. All portfolio data, ROIC figures, write-off rates, factor rates, deal counts, and collection data presented on this website reflect the period January 2024 through March 2026 and are subject to change without notice. Historical performance data represents actual results of the Aspira Capital Group portfolio but should not be construed as a guarantee or prediction of future returns. Write-off rates, factor rates, term lengths, and portfolio composition may vary materially in the future.</p>
+
+        <p><strong style="color: var(--gray-600);">No Guarantee of Returns or Distributions.</strong> Target annual returns of 12&ndash;18% and monthly distributions of 1&ndash;1.5% are projections only and are NOT guaranteed. Actual returns may be lower than projected, and investors may receive no distributions at all. The 12% first-loss cash reserve is a target and not a guarantee; it may be insufficient to cover losses. UCC liens provide a legal claim on merchant receivables but do not guarantee recovery of advances in the event of default.</p>
+
+        <p><strong style="color: var(--gray-600);">Placement Agent Disclosure.</strong> Securities are placed through Zastre &amp; Co LLC, whose registered representatives hold Series 82 licenses with the Financial Industry Regulatory Authority (FINRA). Zastre &amp; Co LLC receives compensation in connection with the placement of these securities. Zastre &amp; Co LLC is not a registered investment adviser and does not provide investment advice. Zastre &amp; Co LLC and its affiliates may have conflicts of interest with respect to the securities described herein.</p>
+
+        <p><strong style="color: var(--gray-600);">Not Investment, Legal, or Tax Advice.</strong> Nothing on this website constitutes investment, legal, tax, or accounting advice. Aspira Capital Group LLC is a private company and is not a registered investment adviser, broker-dealer, or bank. Prospective investors should consult their own independent financial, legal, and tax advisors before making any investment decision. Each investor is responsible for their own due diligence and must evaluate the merits and risks of an investment in light of their own financial situation and objectives.</p>
+
+        <p><strong style="color: var(--gray-600);">SPV Structure.</strong> Investments are made through a Special Purpose Vehicle (&ldquo;SPV&rdquo;) that is legally separate from Aspira Capital Group LLC&rsquo;s operating company. While the SPV structure provides certain legal protections, SPV investors bear the full risk of loss on the underlying MCA portfolio. The SPV may have limited operating history, limited assets, and no independent management.</p>
+
+        <p><strong style="color: var(--gray-600);">Testimonials.</strong> The testimonials, reviews, and investor statements presented on this website reflect the personal experiences and opinions of individual investors. These testimonials are not guarantees of future performance and may not be representative of the experience of all investors. Individual results will vary based on numerous factors including investment amount, timing, and market conditions. Testimonial providers may have received no compensation for their statements, but their continued investment in Aspira creates a financial interest in the success of the fund.</p>
+
+        <p><strong style="color: var(--gray-600);">Third-Party Logos.</strong> The use of institutional fund and financial institution logos on this website is for illustrative purposes only to represent firms that are known to allocate capital to the private credit asset class. Their inclusion does not imply any endorsement, partnership, affiliation, or relationship with Aspira Capital Group LLC, Zastre &amp; Co LLC, or any of their affiliates. These firms have not reviewed, approved, or endorsed this offering in any way.</p>
+
+        <p><strong style="color: var(--gray-600);">Confidentiality.</strong> This material is confidential and is intended solely for the use of the intended recipient. It may not be reproduced, distributed, or disclosed to any third party without the prior written consent of Zastre &amp; Co LLC and Aspira Capital Group LLC. By accessing this website, you agree to maintain the confidentiality of the information contained herein.</p>
+
+        <p><strong style="color: var(--gray-600);">State-Specific Notice.</strong> The securities described herein may not be available in all states. Offers and sales of securities are subject to applicable state &ldquo;blue sky&rdquo; laws and regulations. Neither the SEC nor any state securities commission has approved or disapproved of these securities or determined if this website is truthful or complete.</p>
+
         <p>This site is not a part of the Facebook&trade; website or Facebook&trade; Inc. Additionally, this site is not endorsed by Facebook&trade; in any way. Facebook&trade; is a trademark of Facebook&trade; Inc.</p>
-        <p>The use of institutional fund logos above is for illustrative purposes only to represent firms that allocate to the private credit asset class and does not imply endorsement, partnership, or affiliation with Aspira Capital Group or Zastre &amp; Co.</p>
-        <p><strong style="color: var(--gray-600);">IMPORTANT DISCLOSURES:</strong> This material is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Target returns of 12&ndash;18% are forward-looking projections only and are NOT guaranteed. Past performance is not indicative of future results. Investment in merchant cash advance portfolios involves significant risk, including possible loss of principal. Returns are based on historical portfolio data and may not be replicated. This offering is available to accredited investors only as defined under SEC Rule 501 of Regulation D.</p>
-        <p>Securities placed through Zastre &amp; Co LLC (Series 82 FINRA licensed). Aspira Capital Group LLC is a private company and is not a registered investment adviser, broker-dealer, or bank. This is not investment advice. Consult your own financial, legal, and tax advisors before making any investment decisions.</p>
-        <p>All data presented reflects the period January 2024 through March 2026 and is subject to change. Write-off rates, factor rates, and portfolio composition may vary. SPV investors bear the risk of loss. The 12% first-loss cash reserve is a target and not a guarantee. UCC liens provide a legal claim but do not guarantee recovery.</p>
-        <p>Confidential material &mdash; not for reproduction or third-party distribution. By using this website, you agree to our Terms of Service and Privacy Policy.</p>
+
+        <p>&copy; 2026 Aspira Capital Group LLC. All rights reserved. Securities placed through Zastre &amp; Co LLC (FINRA Series 82 licensed). By using this website, you agree to our Terms of Service and Privacy Policy.</p>
       </div>
     </div>
   </footer>
