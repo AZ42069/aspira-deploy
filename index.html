@@ -113,8 +113,7 @@
     .navbar-cta { font-size: 0.7rem !important; padding: 0.4rem 0.85rem !important; }
     section { padding: 3rem 0 !important; }
     h2 { font-size: 1.5rem !important; }
-    #hero-cta-mobile { display: block !important; }
-    #hero-cta-desktop { display: none !important; }
+    #hero-cta-desktop { margin-top: 0.5rem !important; }
   }
   @media (max-width: 480px) {
     .hero-badge { white-space: normal !important; max-width: 90vw; }
@@ -684,12 +683,6 @@
       <h1>Earn 12&ndash;18% Annual Returns<br>in <span class="text-gold">Private Credit</span></h1>
       <p class="hero-sub">Monthly distributions. UCC-secured on receivables. Non-correlated to public markets. Target 12&ndash;18% annual returns with Aspira Capital Group.</p>
 
-      <!-- Mobile CTA (above deck) -->
-      <div id="hero-cta-mobile" style="display:none; text-align:center; margin: 0 auto 1.5rem;">
-        <a href="#qualify" class="cta-btn">See If You Qualify &rarr;</a>
-        <div style="font-size:0.8125rem; color:var(--gray-500); margin-top:0.5rem;">For accredited investors &middot; $50K minimum</div>
-      </div>
-
       <div id="deck-wrap" style="position:relative; margin: 0 auto 2.5rem; max-width: 1140px; overflow:visible;">
         <div id="deck-outer" style="border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(15,27,45,0.14); border: 3px solid var(--gold); outline: 6px solid rgba(184,148,63,0.12);">
           <div id="deck-scaler" style="transform-origin:top left; line-height:0;">
@@ -729,15 +722,30 @@
           var iframe = document.getElementById('deck-iframe');
           if (!outer || !scaler || !iframe) return;
           var isMobile = window.innerWidth <= 768;
-          var isSmall = window.innerWidth <= 480;
-          var slideH = isSmall ? 900 : (isMobile ? 800 : 720);
           var containerW = isMobile ? window.innerWidth - 32 : (wrap ? wrap.offsetWidth : outer.offsetWidth);
-          var scale = containerW / 1280;
-          iframe.style.height = slideH + 'px';
-          scaler.style.transform = 'scale(' + scale + ')';
-          scaler.style.width = '1280px';
-          scaler.style.height = (slideH * scale) + 'px';
-          outer.style.height = (slideH * scale) + 'px';
+
+          if (isMobile) {
+            // On mobile: render the iframe at the phone's actual width so the deck's
+            // own mobile CSS (vw units) kicks in at full size — no scaling needed.
+            var iframeW = containerW;
+            var slideH = iframeW * 1.6; // ~16:10 tall portrait ratio
+            iframe.style.width = iframeW + 'px';
+            iframe.style.height = slideH + 'px';
+            scaler.style.transform = 'none';
+            scaler.style.width = iframeW + 'px';
+            scaler.style.height = slideH + 'px';
+            outer.style.height = slideH + 'px';
+          } else {
+            // Desktop: scale 1280px iframe down to container
+            var scale = containerW / 1280;
+            iframe.style.width = '1280px';
+            iframe.style.height = '720px';
+            scaler.style.transform = 'scale(' + scale + ')';
+            scaler.style.width = '1280px';
+            scaler.style.height = (720 * scale) + 'px';
+            outer.style.height = (720 * scale) + 'px';
+          }
+
           if (wrap) {
             wrap.style.maxWidth = isMobile ? (containerW + 'px') : '1140px';
             wrap.style.marginLeft = 'auto';
