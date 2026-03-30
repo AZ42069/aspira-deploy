@@ -446,12 +446,19 @@
     /* CTA bar */
     .cta-bar { flex-direction: column !important; gap: 1.5vw !important; padding: 3vw 4vw !important; font-size: 3vw !important; }
 
-    /* Leadership */
-    .leader-photo { width: 25vw !important; height: 25vw !important; }
+    /* Leadership — smaller photo so it fits in one mobile slide */
+    .leader-photo { width: 18vw !important; height: 18vw !important; }
 
-    /* Disclosure */
+    /* Disclosure / Risk — scrollable, NOT split */
+    .slide.no-split { overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
     .disclosure-text { font-size: 3vw !important; line-height: 1.7 !important; }
     .disclosure-text p { margin-bottom: 3vw !important; }
+
+    /* Thank You slide — tighter spacing */
+    .slide.slide-center [style*="margin-bottom:40px"] { margin-bottom: 3vw !important; }
+    .slide.slide-center [style*="margin-bottom:32px"] { margin-bottom: 2vw !important; }
+    .slide.slide-center [style*="margin-top:32px"] { margin-top: 2vw !important; }
+    .slide.slide-center [style*="font-size:36px"] { font-size: 7vw !important; }
 
     /* Footer */
     .s-footer {
@@ -614,17 +621,19 @@
         <div class="stat-label">Write-Off Rate</div>
       </div>
     </div>
-    <div style="font-size:10px; font-weight:700; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">How It Works</div>
-    <div class="flow">
-      <div class="flow-step"><div class="step-num">01</div><div class="step-label">Apply</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="step-num">02</div><div class="step-label">Underwrite</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="step-num">03</div><div class="step-label">Fund</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="step-num">04</div><div class="step-label">Daily ACH</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="step-num">05</div><div class="step-label">Investor Return</div></div>
+    <div class="how-it-works-group">
+      <div style="font-size:10px; font-weight:700; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:10px;">How It Works</div>
+      <div class="flow">
+        <div class="flow-step"><div class="step-num">01</div><div class="step-label">Apply</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-num">02</div><div class="step-label">Underwrite</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-num">03</div><div class="step-label">Fund</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-num">04</div><div class="step-label">Daily ACH</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="step-num">05</div><div class="step-label">Investor Return</div></div>
+      </div>
     </div>
     <div class="s-footer"><span class="gold-text">Aspira Capital Group</span><span>Confidential</span></div>
   </div>
@@ -662,9 +671,9 @@
           <div class="stat-label" style="font-size:9px;">Avg Term (Days)</div>
         </div>
       </div>
-      <div class="small-text" style="border-top:1px solid var(--border); padding-top:10px;">Closed-deal ROIC of <strong style="color:var(--gold);">159%</strong> — $1.59 collected per $1.00 deployed, net of write-offs.</div>
     </div>
     <div class="col-r" style="padding-left:40px;">
+      <div class="small-text" style="border-top:1px solid var(--border); padding:10px 0 12px; margin-bottom:8px;">Closed-deal ROIC of <strong style="color:var(--gold);">159%</strong> — $1.59 collected per $1.00 deployed, net of write-offs.</div>
       <div style="font-size:10px; font-weight:700; color:var(--text-muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:16px;">ROIC by Vintage</div>
       <svg viewBox="0 0 400 200" style="width:100%; max-width:400px;">
         <!-- Grid lines -->
@@ -863,19 +872,11 @@
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:12px;">Former <strong>SVP & Chief Compliance Officer</strong> (banking institution, NJ) and <strong>VP & Regulatory Compliance Officer</strong> (private bank, NY)</div>
+          <div class="body-text" style="font-size:12px;">Former <strong>SVP & CCO</strong> (banking, NJ) · <strong>VP Regulatory Compliance</strong> (private bank, NY)</div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:12px;">Expert in credit risk, regulatory risk, BSA/AML compliance</div>
-        </div>
-        <div style="display:flex; align-items:flex-start; gap:10px;">
-          <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:12px;">Certified Fraud Examiner (CFE), Certified Anti-Money Laundering Specialist (CAMS), Certified Information Privacy Professional (CIPP)</div>
-        </div>
-        <div style="display:flex; align-items:flex-start; gap:10px;">
-          <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
-          <div class="body-text" style="font-size:12px;">NJ Bankers Association <strong>New Leaders Award</strong> recipient</div>
+          <div class="body-text" style="font-size:12px;">CFE, CAMS, CIPP certified · NJ Bankers <strong>New Leaders Award</strong></div>
         </div>
         <div style="display:flex; align-items:flex-start; gap:10px;">
           <div style="color:var(--gold); font-size:8px; margin-top:5px; flex-shrink:0;">◆</div>
@@ -883,7 +884,7 @@
         </div>
       </div>
       <div class="quote-block" style="padding:14px 20px;">
-        <div class="quote-text" style="font-size:12px;">"Our team invests alongside each opportunity — same deal, same structure. I have my own money in this strategy. I want you to invest alongside mine."</div>
+        <div class="quote-text" style="font-size:12px;">"I have my own money in this strategy. I want you to invest alongside mine."</div>
         <div class="quote-attr">— David Monegro</div>
       </div>
     </div>
@@ -906,16 +907,16 @@
     <h2>What Our <span class="gold">Investors</span> Say</h2>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:24px;">
       <div class="testimonial-card">
-        <div class="testimonial-text">"Monthly distributions like clockwork. No waiting for quarterly payouts — I see my preferred return hit my account every single month."</div>
-        <div class="testimonial-attr">— Early Investor, $250K</div>
+        <div class="testimonial-text">"I invested in 2024 and the returns have been solid — surpassed my expectations. It's more than just the numbers. It's the peace of mind that comes when you believe in the people running the show."</div>
+        <div class="testimonial-attr">— Alex Vargas, Investor</div>
       </div>
       <div class="testimonial-card">
-        <div class="testimonial-text">"David's team is transparent and professional. The fact that he invests his own capital alongside mine says everything."</div>
-        <div class="testimonial-attr">— Private Investor, $100K</div>
+        <div class="testimonial-text">"I've been extremely satisfied with the returns I've gotten from Aspira. It's much higher than you would get in most places and I couldn't be happier with the process."</div>
+        <div class="testimonial-attr">— Samson, Investor</div>
       </div>
       <div class="testimonial-card">
-        <div class="testimonial-text">"I moved capital from equities into Aspira for the yield and consistency. The UCC protections give me peace of mind."</div>
-        <div class="testimonial-attr">— Accredited Investor, $500K</div>
+        <div class="testimonial-text">"From the very beginning the process was smooth, professional and easy to understand. The results have exceeded my expectations. I absolutely recommend Aspira Capital."</div>
+        <div class="testimonial-attr">— Maria West, Investor</div>
       </div>
     </div>
     <div class="gold-banner" style="margin-top:auto;">
@@ -972,7 +973,7 @@
   <!-- ═══════════════════════════════════════════════════════════
        SLIDE 10 — DISCLOSURES
        ═══════════════════════════════════════════════════════════ -->
-  <div class="slide slide-stack" style="justify-content:flex-start;">
+  <div class="slide slide-stack no-split" style="justify-content:flex-start;">
     <div class="s-header">
       <div class="s-header-logos">
         <img src="images/aspira-logo.png" alt="Aspira">
@@ -1003,7 +1004,7 @@
   <!-- ═══════════════════════════════════════════════════════════
        SLIDE 11 — RISK FACTORS (CONTINUED)
        ═══════════════════════════════════════════════════════════ -->
-  <div class="slide slide-stack" style="justify-content:flex-start;">
+  <div class="slide slide-stack no-split" style="justify-content:flex-start;">
     <div class="s-header">
       <div class="s-header-logos">
         <img src="images/aspira-logo.png" alt="Aspira">
@@ -1106,12 +1107,10 @@
 
   /* ═══════════════════════════════════════════════════════════
      MOBILE AUTO-SPLIT
-     The iframe starts at 1280×720 (desktop) and the parent's
-     scaleDeck() resizes it to ~340×425 on phones. We can NOT
-     check width at parse time — we must wait for the resize.
-     Once mobile is detected, we measure every slide's natural
-     height, split overflowing ones into continuations, and
-     rebuild the navigation.
+     The iframe starts at 1280×720 (desktop). The parent's
+     scaleDeck() resizes it to ~340×425 on phones. We wait for
+     that resize, then measure slides and split overflowing ones.
+     Slides with .no-split are scrollable instead of split.
      ═══════════════════════════════════════════════════════════ */
   (function() {
     var splitDone = false;
@@ -1119,7 +1118,6 @@
     function tryInit() {
       if (splitDone || window.innerWidth > 768) return;
       splitDone = true;
-      // Wait for fonts so measurements are accurate
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(function() {
           requestAnimationFrame(function() { requestAnimationFrame(doSplit); });
@@ -1129,21 +1127,18 @@
       }
     }
 
-    // Trigger points — iframe starts at 1280px so the resize event
-    // from the parent's scaleDeck() is the primary trigger
-    tryInit();                                                   // standalone mobile
-    window.addEventListener('resize', tryInit);                  // parent resizes iframe
+    tryInit();
+    window.addEventListener('resize', tryInit);
     window.addEventListener('load', function() { setTimeout(tryInit, 200); });
     setTimeout(tryInit, 800);
     setTimeout(tryInit, 2000);
 
-    /* ── Main split orchestrator ── */
     function doSplit() {
       var ss = document.querySelector('.slideshow');
       var navEl = document.querySelector('.nav');
       var navH = navEl ? navEl.offsetHeight + 10 : 60;
       var targetH = window.innerHeight - navH;
-      if (targetH < 200) return; // sanity
+      if (targetH < 200) return;
 
       // Show all slides at natural height for measurement
       Array.from(ss.querySelectorAll('.slide')).forEach(function(s) {
@@ -1153,13 +1148,15 @@
         s.style.setProperty('overflow', 'visible', 'important');
       });
 
-      // Iteratively split until nothing overflows
+      // Split overflowing slides (skip .no-split)
       var changed = true, safety = 50;
       while (changed && safety-- > 0) {
         changed = false;
         var arr = Array.from(ss.querySelectorAll('.slide'));
         for (var i = 0; i < arr.length; i++) {
           var sl = arr[i];
+          if (sl.classList.contains('no-split')) continue;
+
           sl.style.setProperty('display', 'flex', 'important');
           sl.style.setProperty('height', 'auto', 'important');
           sl.style.setProperty('max-height', 'none', 'important');
@@ -1175,18 +1172,24 @@
             ns.style.setProperty('overflow', 'visible', 'important');
             sl.parentNode.insertBefore(ns, sl.nextSibling);
             changed = true;
-            break; // restart — DOM changed
+            break;
           }
         }
       }
 
-      // Lock every slide to the target height
+      // Lock all slides to target height
       var fin = ss.querySelectorAll('.slide');
       for (var j = 0; j < fin.length; j++) {
         fin[j].style.removeProperty('display');
         fin[j].style.setProperty('height', targetH + 'px', 'important');
         fin[j].style.setProperty('max-height', targetH + 'px', 'important');
-        fin[j].style.setProperty('overflow', 'hidden', 'important');
+        // .no-split slides get overflow-y:auto (scrollable), others get hidden
+        if (fin[j].classList.contains('no-split')) {
+          fin[j].style.setProperty('overflow-y', 'auto', 'important');
+          fin[j].style.setProperty('overflow-x', 'hidden', 'important');
+        } else {
+          fin[j].style.setProperty('overflow', 'hidden', 'important');
+        }
         fin[j].classList.remove('active');
       }
       fin[0].classList.add('active');
@@ -1201,9 +1204,7 @@
       }
 
       // Rebuild navigation
-      slides = fin;
-      total = fin.length;
-      cur = 0;
+      slides = fin; total = fin.length; cur = 0;
       dots.innerHTML = '';
       for (var d = 0; d < total; d++) {
         var dot = document.createElement('div');
@@ -1215,93 +1216,67 @@
       document.getElementById('nextBtn').disabled = total <= 1;
     }
 
-    /* ── Dispatch to the right split strategy ── */
     function trySplit(slide, targetH) {
       var sTop = slide.getBoundingClientRect().top;
       var children = Array.from(slide.children);
-
-      // Find footer
       var footer = null;
       for (var i = children.length - 1; i >= 0; i--) {
         if (children[i].classList.contains('s-footer')) { footer = children[i]; break; }
       }
-
-      // Find header (may be inside .col-l)
       var header = slide.querySelector('.s-header');
 
-      // Column-layout slides
-      if (slide.classList.contains('slide-split')) {
+      if (slide.classList.contains('slide-split'))
         return splitCols(slide, header, footer, targetH, sTop);
-      }
 
-      // Disclosure / risk slides
-      var discText = slide.querySelector('.disclosure-text');
-      if (discText && discText.querySelectorAll('p').length > 1) {
-        return splitParas(header, footer, discText, targetH, sTop);
-      }
-
-      // Normal slides
       var content = children.filter(function(el) { return el !== footer; });
       return splitContent(header, footer, content, targetH, sTop);
     }
 
-    /* ── Split normal slides ──
-       First tries at direct-child boundaries. If the overflowing
-       element starts within the frame (e.g. a grid), looks inside
-       it to split among ITS children so we keep as much on-screen
-       as possible. */
     function splitContent(header, footer, content, targetH, sTop) {
       var fH = footer ? footer.offsetHeight + 15 : 15;
       var lim = targetH - fH;
 
-      // Find first child whose bottom exceeds the limit
       var idx = -1;
       for (var i = 0; i < content.length; i++) {
         if (content[i].getBoundingClientRect().bottom - sTop > lim) { idx = i; break; }
       }
       if (idx < 0) return null;
 
-      // Index of the first "real" content (skip header)
       var first = (content[0] === header) ? 1 : 0;
 
-      // Only the header (or nothing) fits — dig inside first content element
+      // Only header fits — dig inside first content element
       if (idx <= first) {
         var el = content[first];
         if (!el || el === header) return null;
-        return splitInside(header, footer, el, content.slice(first + 1), targetH, sTop, lim);
+        return splitInside(header, footer, el, content.slice(first + 1), sTop, lim);
       }
 
-      // The overflowing element starts within the frame — try splitting inside it
-      // so we keep its earlier children on this slide
+      // Overflowing element starts within frame — try splitting inside it
       var overEl = content[idx];
       if (overEl.getBoundingClientRect().top - sTop < lim && overEl.children.length > 1) {
-        var inner = splitInside(header, footer, overEl, content.slice(idx + 1), targetH, sTop, lim);
+        var inner = splitInside(header, footer, overEl, content.slice(idx + 1), sTop, lim);
         if (inner) return inner;
       }
 
-      // Fallback: move everything from idx onward
+      // Move everything from idx onward
       return makeCont(header, footer,
         content.slice(idx).filter(function(el) { return el !== header; }));
     }
 
-    /* ── Split column-layout slides ── */
     function splitCols(slide, header, footer, targetH, sTop) {
       var colL = slide.querySelector('.col-l');
       var colR = slide.querySelector('.col-r');
       var fH = footer ? footer.offsetHeight + 15 : 15;
       var lim = targetH - fH;
 
-      // If col-r exists and overflows, move its children to a continuation
       if (colR && colR.getBoundingClientRect().bottom - sTop > lim) {
         var cont = makeCont(header, footer, []);
-        // Insert col-r's children before the footer in the continuation
-        var ftrInCont = cont.querySelector('.s-footer');
-        while (colR.firstChild) cont.insertBefore(colR.firstChild, ftrInCont);
+        var ftr = cont.querySelector('.s-footer');
+        while (colR.firstChild) cont.insertBefore(colR.firstChild, ftr);
         colR.remove();
         return cont;
       }
 
-      // col-l itself overflows (col-r already gone or non-existent)
       if (colL && colL.getBoundingClientRect().bottom - sTop > lim) {
         var hdrInCol = colL.querySelector('.s-header');
         var items = Array.from(colL.children).filter(function(el) { return el !== hdrInCol; });
@@ -1311,64 +1286,28 @@
         }
         if (si <= 0) return null;
         var cont = makeCont(hdrInCol || header, footer, []);
-        var ftrInCont = cont.querySelector('.s-footer');
-        for (var j = si; j < items.length; j++) cont.insertBefore(items[j], ftrInCont);
+        var ftr = cont.querySelector('.s-footer');
+        for (var j = si; j < items.length; j++) cont.insertBefore(items[j], ftr);
         return cont;
       }
-
       return null;
     }
 
-    /* ── Split inside an overflowing container (grid, div, etc.) ── */
-    function splitInside(header, footer, container, rest, targetH, sTop, lim) {
+    function splitInside(header, footer, container, rest, sTop, lim) {
       var kids = Array.from(container.children);
       if (kids.length <= 1) return null;
-
       var si = -1;
       for (var i = 0; i < kids.length; i++) {
         if (kids[i].getBoundingClientRect().bottom - sTop > lim) { si = i; break; }
       }
       if (si <= 0) return null;
 
-      // Build continuation: header + overflowing kids + remaining siblings + footer
       var moved = [];
       for (var j = si; j < kids.length; j++) moved.push(kids[j]);
       rest.forEach(function(el) { moved.push(el); });
       return makeCont(header, footer, moved);
     }
 
-    /* ── Split disclosure / risk slides at <p> boundaries ── */
-    function splitParas(header, footer, discText, targetH, sTop) {
-      var paras = Array.from(discText.querySelectorAll('p'));
-      var fH = footer ? footer.offsetHeight + 15 : 15;
-      var lim = targetH - fH;
-
-      var si = -1;
-      for (var i = 0; i < paras.length; i++) {
-        if (paras[i].getBoundingClientRect().bottom - sTop > lim) { si = i; break; }
-      }
-      if (si <= 0) return null;
-
-      var cont = document.createElement('div');
-      cont.className = 'slide slide-stack';
-      cont.style.justifyContent = 'flex-start';
-      if (header) cont.appendChild(header.cloneNode(true));
-
-      var card = document.createElement('div');
-      card.className = 'card';
-      card.style.cssText = 'padding:24px; margin-bottom:auto;';
-      var dt = document.createElement('div');
-      dt.className = 'disclosure-text';
-      dt.style.cssText = 'font-size:9.5px; line-height:1.7;';
-      for (var j = si; j < paras.length; j++) dt.appendChild(paras[j]);
-      card.appendChild(dt);
-      cont.appendChild(card);
-
-      if (footer) cont.appendChild(footer.cloneNode(true));
-      return cont;
-    }
-
-    /* ── Helper: create a continuation slide ── */
     function makeCont(header, footer, elements) {
       var c = document.createElement('div');
       c.className = 'slide slide-stack';
