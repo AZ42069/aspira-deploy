@@ -1365,35 +1365,60 @@
     </div>
   </section>
 
-  <!-- FINAL CTA / QUALIFY — Typeform-style Lead Form -->
-  <section id="qualify" style="background: linear-gradient(180deg, var(--navy) 0%, #162236 100%); padding: 5rem 0; min-height: 600px;">
-    <div class="container" style="max-width: 640px;">
-
-      <!-- Progress bar -->
-      <div id="qf-progress-wrap" style="margin-bottom: 3rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-          <span style="font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(184,148,63,0.7);">Qualification Check</span>
-          <span id="qf-step-label" style="font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 500;">1 of 6</span>
-        </div>
-        <div style="height: 3px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden;">
-          <div id="qf-progress-bar" style="height: 100%; width: 16.66%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);"></div>
-        </div>
+  <!-- FINAL CTA (simple, links open the form overlay) -->
+  <section style="background: linear-gradient(180deg, rgba(184,148,63,0.04) 0%, var(--white) 100%); padding: 4rem 0;">
+    <div class="container text-center">
+      <h2>Private Credit. Monthly Income.<br><span class="text-gold">Institutional Returns.</span></h2>
+      <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
+        <div><span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); display: block; font-weight: 700;">Step 1</span><span class="text-small">Verify you qualify</span></div>
+        <div style="color: var(--gray-300); font-size: 1.5rem;">&rarr;</div>
+        <div><span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); display: block; font-weight: 700;">Step 2</span><span class="text-small">15-min discovery call</span></div>
+        <div style="color: var(--gray-300); font-size: 1.5rem;">&rarr;</div>
+        <div><span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--navy); display: block; font-weight: 700;">Step 3</span><span class="text-small">Start earning monthly</span></div>
       </div>
+      <div class="gold-banner" style="max-width: 600px; margin: 0 auto 2rem;">
+        Friends and family have invested in Aspira since inception. We are now opening a limited number of spots to qualified investors outside that circle.
+      </div>
+      <a href="#" onclick="openQualifyForm(); return false;" class="cta-btn" style="font-size: 1rem; padding: 1rem 2.5rem;">See If You Qualify &rarr;</a>
+      <span class="cta-sub">Takes 60 seconds &middot; No obligation</span>
+    </div>
+  </section>
 
-      <!-- Form slides container -->
-      <div id="qf-slides" style="position: relative; overflow: hidden; min-height: 320px;">
+  <!-- ============================================================ -->
+  <!-- FULL-SCREEN QUALIFY OVERLAY (Typeform-style)                 -->
+  <!-- ============================================================ -->
+  <div id="qf-overlay" style="display:none;">
+    <!-- Close button -->
+    <button id="qf-close" onclick="closeQualifyForm()" aria-label="Close">&times;</button>
+
+    <!-- Aspira logo top-left -->
+    <div id="qf-logo">
+      <img src="images/aspira-logo.png" alt="Aspira Capital" style="height: 32px; filter: brightness(0) invert(1); opacity: 0.7;">
+    </div>
+
+    <!-- Progress bar -->
+    <div id="qf-progress-wrap">
+      <div id="qf-progress-track">
+        <div id="qf-progress-bar"></div>
+      </div>
+      <span id="qf-step-label">1 of 6</span>
+    </div>
+
+    <!-- Centered form area -->
+    <div id="qf-center">
+      <div id="qf-inner">
 
         <!-- Q1: Full Name -->
         <div class="qf-slide qf-active" data-step="0">
           <p class="qf-num">1 &rarr;</p>
           <h2 class="qf-question">What&rsquo;s your full name?</h2>
-          <div class="qf-fields" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div>
-              <input type="text" id="qf-first" class="qf-input" placeholder="First name" autocomplete="given-name" required>
+          <div class="qf-fields-row">
+            <div class="qf-field-group">
+              <input type="text" id="qf-first" class="qf-input" placeholder="First name" autocomplete="given-name">
               <div class="qf-error" id="qf-first-err"></div>
             </div>
-            <div>
-              <input type="text" id="qf-last" class="qf-input" placeholder="Last name" autocomplete="family-name" required>
+            <div class="qf-field-group">
+              <input type="text" id="qf-last" class="qf-input" placeholder="Last name" autocomplete="family-name">
               <div class="qf-error" id="qf-last-err"></div>
             </div>
           </div>
@@ -1404,7 +1429,7 @@
         <div class="qf-slide" data-step="1">
           <p class="qf-num">2 &rarr;</p>
           <h2 class="qf-question">What&rsquo;s your email address?</h2>
-          <input type="email" id="qf-email" class="qf-input" placeholder="you@example.com" autocomplete="email" required>
+          <input type="email" id="qf-email" class="qf-input" placeholder="you@example.com" autocomplete="email">
           <div class="qf-error" id="qf-email-err"></div>
           <button class="qf-btn" onclick="qfNext()">Continue <span class="qf-btn-hint">press <strong>Enter &crarr;</strong></span></button>
         </div>
@@ -1413,7 +1438,7 @@
         <div class="qf-slide" data-step="2">
           <p class="qf-num">3 &rarr;</p>
           <h2 class="qf-question">What&rsquo;s your phone number?</h2>
-          <input type="tel" id="qf-phone" class="qf-input" placeholder="(555) 123-4567" autocomplete="tel" required>
+          <input type="tel" id="qf-phone" class="qf-input" placeholder="(555) 123-4567" autocomplete="tel">
           <div class="qf-error" id="qf-phone-err"></div>
           <button class="qf-btn" onclick="qfNext()">Continue <span class="qf-btn-hint">press <strong>Enter &crarr;</strong></span></button>
         </div>
@@ -1492,128 +1517,187 @@
 
         <!-- SUCCESS SCREEN -->
         <div class="qf-slide" data-step="6" id="qf-success">
-          <div style="text-align: center; padding: 1rem 0;">
-            <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: #fff;">&#10003;</div>
-            <h2 style="font-family: var(--font-display); font-size: 1.75rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700;">You&rsquo;re Pre-Qualified</h2>
-            <p style="color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 2rem; max-width: 420px; margin-left: auto; margin-right: auto;">Great news &mdash; based on your answers, you&rsquo;re eligible to schedule a discovery call with our team. Pick a time that works for you.</p>
-            <a href="https://calendar.app.google/ZK5wfeNoufuVZtNi8" target="_blank" rel="noopener" class="cta-btn" style="font-size: 1.0625rem; padding: 1.1rem 2.75rem; display: inline-block;">Book Your Discovery Call &rarr;</a>
-            <span class="cta-sub" style="color: rgba(255,255,255,0.35);">15-minute call &middot; No obligation &middot; Learn about the opportunity</span>
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.25rem; color: #fff;">&#10003;</div>
+            <h2 class="qf-question" style="text-align:center;">You&rsquo;re Pre-Qualified</h2>
+            <p style="color: rgba(255,255,255,0.55); font-size: 1.0625rem; margin-bottom: 2.5rem; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.7;">Great news &mdash; based on your answers, you&rsquo;re eligible to schedule a discovery call with our team. Pick a time that works for you.</p>
+            <a href="https://calendar.app.google/ZK5wfeNoufuVZtNi8" target="_blank" rel="noopener" class="cta-btn" style="font-size: 1.0625rem; padding: 1.1rem 2.75rem;">Book Your Discovery Call &rarr;</a>
+            <span class="cta-sub" style="color: rgba(255,255,255,0.3); display:block; margin-top:0.75rem;">15-minute call &middot; No obligation &middot; Learn about the opportunity</span>
           </div>
         </div>
 
         <!-- NOT QUALIFIED SCREEN -->
-        <div class="qf-slide" data-step="7" id="qf-not-qualified" style="display:none;">
-          <div style="text-align: center; padding: 1rem 0;">
-            <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.75rem; color: rgba(255,255,255,0.4);">&#9432;</div>
-            <h2 style="font-family: var(--font-display); font-size: 1.75rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700;">Thank You for Your Interest</h2>
-            <p style="color: rgba(255,255,255,0.6); font-size: 1rem; margin-bottom: 1.5rem; max-width: 460px; margin-left: auto; margin-right: auto;">This investment opportunity is currently available exclusively to accredited investors as defined by SEC Rule 501. If your financial situation changes or you&rsquo;d like to learn more about accredited investor qualifications, we&rsquo;d be happy to help.</p>
-            <a href="mailto:alex@zastreco.com?subject=Aspira%20Capital%20—%20Investor%20Inquiry" class="cta-btn" style="font-size: 0.9375rem; padding: 0.875rem 2rem; background: rgba(255,255,255,0.1); box-shadow: none;">Contact Us Anyway &rarr;</a>
+        <div class="qf-slide" data-step="7" id="qf-not-qualified">
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: rgba(255,255,255,0.35);">&#9432;</div>
+            <h2 class="qf-question" style="text-align:center;">Thank You for Your Interest</h2>
+            <p style="color: rgba(255,255,255,0.55); font-size: 1rem; margin-bottom: 2rem; max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.7;">This investment opportunity is currently available exclusively to accredited investors as defined by SEC Rule 501. If your financial situation changes or you&rsquo;d like to learn more, we&rsquo;d be happy to help.</p>
+            <a href="mailto:alex@zastreco.com?subject=Aspira%20Capital%20—%20Investor%20Inquiry" class="cta-btn" style="font-size: 0.9375rem; padding: 0.875rem 2rem; background: rgba(255,255,255,0.08); box-shadow: none;">Contact Us Anyway &rarr;</a>
           </div>
         </div>
 
       </div>
-
-      <!-- Back button -->
-      <div id="qf-back-wrap" style="margin-top: 1.5rem; display: none;">
-        <button onclick="qfBack()" style="background: none; border: none; color: rgba(255,255,255,0.3); font-size: 0.8125rem; font-family: var(--font-body); cursor: pointer; padding: 0.5rem 0; transition: color 0.2s;">
-          &larr; Back
-        </button>
-      </div>
-
     </div>
-  </section>
+
+    <!-- Back button bottom-left -->
+    <div id="qf-back-wrap">
+      <button onclick="qfBack()" id="qf-back-btn">&larr; Back</button>
+    </div>
+  </div>
 
   <style>
-    /* === QUALIFY FORM (Typeform-style) === */
+    /* === FULL-SCREEN QUALIFY OVERLAY === */
+    #qf-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 10000;
+      background: linear-gradient(160deg, #0a1220 0%, #0F1B2D 40%, #162236 100%);
+      overflow-y: auto;
+      animation: qfFadeIn 0.35s ease;
+    }
+    @keyframes qfFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #qf-overlay.qf-closing {
+      animation: qfFadeOut 0.25s ease forwards;
+    }
+    @keyframes qfFadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    #qf-close {
+      position: fixed; top: 1.25rem; right: 1.5rem; z-index: 10001;
+      background: none; border: none;
+      color: rgba(255,255,255,0.35); font-size: 2rem; line-height: 1;
+      cursor: pointer; padding: 0.5rem;
+      transition: color 0.2s;
+    }
+    #qf-close:hover { color: rgba(255,255,255,0.7); }
+
+    #qf-logo {
+      position: fixed; top: 1.5rem; left: 1.75rem; z-index: 10001;
+    }
+
+    #qf-progress-wrap {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10001;
+      padding: 0.75rem 1.75rem 0;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    #qf-progress-track {
+      flex: 1; height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px; overflow: hidden;
+    }
+    #qf-progress-bar {
+      height: 100%; width: 16.66%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    #qf-step-label {
+      font-size: 0.6875rem; color: rgba(255,255,255,0.3);
+      font-weight: 500; font-family: var(--font-body);
+      white-space: nowrap;
+    }
+
+    #qf-center {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 5rem 1.5rem 4rem;
+    }
+    #qf-inner {
+      width: 100%; max-width: 580px; position: relative;
+    }
+
+    /* Slides */
     .qf-slide {
-      position: absolute; top: 0; left: 0; width: 100%;
-      opacity: 0; transform: translateY(30px);
-      pointer-events: none;
-      transition: opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: none;
+      opacity: 0; transform: translateY(24px);
     }
     .qf-slide.qf-active {
-      position: relative;
-      opacity: 1; transform: translateY(0);
-      pointer-events: auto;
+      display: block;
+      animation: qfSlideIn 0.4s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
     }
-    .qf-slide.qf-exit-up {
-      opacity: 0; transform: translateY(-30px);
+    @keyframes qfSlideIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+
     .qf-num {
       font-size: 0.8125rem; font-weight: 600; color: var(--gold); margin-bottom: 0.5rem;
     }
     .qf-question {
       font-family: var(--font-display) !important;
-      font-size: clamp(1.5rem, 4vw, 2rem) !important;
+      font-size: clamp(1.5rem, 4vw, 2.125rem) !important;
       color: #fff !important;
-      margin-bottom: 0.5rem !important;
+      margin-bottom: 0.75rem !important;
       font-weight: 600 !important;
       line-height: 1.3 !important;
     }
     .qf-sub {
-      font-size: 0.875rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; font-weight: 400;
+      font-size: 0.9375rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; font-weight: 400;
     }
+
+    .qf-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .qf-field-group { display: flex; flex-direction: column; }
+
     .qf-input {
       width: 100%;
       padding: 1rem 0;
       background: transparent;
       border: none;
-      border-bottom: 2px solid rgba(255,255,255,0.15);
+      border-bottom: 2px solid rgba(255,255,255,0.12);
       color: #fff;
       font-family: var(--font-body);
       font-size: 1.25rem;
       font-weight: 400;
       outline: none;
       transition: border-color 0.3s;
-      margin-bottom: 0.25rem;
     }
     .qf-input::placeholder { color: rgba(255,255,255,0.2); }
     .qf-input:focus { border-bottom-color: var(--gold); }
+
     .qf-error {
-      font-size: 0.75rem; color: #f87171; min-height: 1.25rem; padding-top: 0.25rem;
-      transition: opacity 0.2s;
+      font-size: 0.75rem; color: #f87171; min-height: 1.25rem; padding-top: 0.35rem;
     }
+
     .qf-btn {
-      margin-top: 1.5rem;
-      padding: 0.875rem 2rem;
+      margin-top: 2rem;
+      padding: 0.9rem 2.25rem;
       background: var(--gold);
       color: #fff;
       border: none;
       border-radius: 8px;
       font-family: var(--font-body);
-      font-size: 0.9375rem;
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.25s;
       display: inline-flex; align-items: center; gap: 0.75rem;
     }
-    .qf-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .qf-btn-hint {
-      font-size: 0.6875rem; font-weight: 400; opacity: 0.6;
-    }
-    @media (max-width: 640px) {
-      .qf-btn-hint { display: none; }
-    }
+    .qf-btn:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(184,148,63,0.3); }
+    .qf-btn-hint { font-size: 0.6875rem; font-weight: 400; opacity: 0.55; }
 
     /* Option buttons */
-    .qf-options { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .qf-options { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
     .qf-option {
       display: flex; align-items: flex-start; gap: 0.875rem;
-      padding: 1rem 1.25rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
+      padding: 1.1rem 1.25rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: 10px;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.75);
       font-family: var(--font-body);
       font-size: 0.9375rem;
       text-align: left;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.2s;
       line-height: 1.5;
     }
     .qf-option:hover {
-      background: rgba(184,148,63,0.08);
-      border-color: rgba(184,148,63,0.3);
+      background: rgba(184,148,63,0.06);
+      border-color: rgba(184,148,63,0.25);
+      color: #fff;
     }
     .qf-option.selected {
       background: rgba(184,148,63,0.12);
@@ -1622,20 +1706,39 @@
     }
     .qf-option-key {
       display: flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 5px;
-      font-size: 0.6875rem; font-weight: 700; color: rgba(255,255,255,0.5);
-      transition: all 0.25s;
+      width: 28px; height: 28px; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      font-size: 0.6875rem; font-weight: 700; color: rgba(255,255,255,0.4);
+      transition: all 0.2s;
     }
     .qf-option.selected .qf-option-key {
       background: var(--gold); border-color: var(--gold); color: #fff;
     }
 
-    @media (max-width: 480px) {
-      #qualify { padding: 3rem 0 !important; min-height: auto !important; }
+    #qf-back-wrap {
+      position: fixed; bottom: 1.5rem; left: 1.75rem; z-index: 10001;
+      display: none;
+    }
+    #qf-back-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.875rem; font-family: var(--font-body);
+      cursor: pointer; padding: 0.5rem 0;
+      transition: color 0.2s;
+    }
+    #qf-back-btn:hover { color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 640px) {
+      .qf-btn-hint { display: none; }
+      #qf-logo { top: 1rem; left: 1rem; }
+      #qf-logo img { height: 26px !important; }
+      #qf-close { top: 0.75rem; right: 0.75rem; }
+      #qf-progress-wrap { padding: 0.5rem 1rem 0; }
+      #qf-center { padding: 4.5rem 1.25rem 3rem; }
+      .qf-fields-row { grid-template-columns: 1fr !important; }
       .qf-input { font-size: 1.0625rem; }
-      .qf-slide .qf-fields { grid-template-columns: 1fr !important; }
+      #qf-back-wrap { bottom: 1rem; left: 1rem; }
     }
   </style>
 
@@ -1644,45 +1747,50 @@
     var step = 0;
     var totalSteps = 6;
     var data = {};
-    var slides = document.querySelectorAll('.qf-slide');
+    var overlay = document.getElementById('qf-overlay');
+    var slides = overlay.querySelectorAll('.qf-slide');
     var bar = document.getElementById('qf-progress-bar');
     var stepLabel = document.getElementById('qf-step-label');
     var backWrap = document.getElementById('qf-back-wrap');
     var progressWrap = document.getElementById('qf-progress-wrap');
 
-    function showSlide(n, direction) {
-      var current = document.querySelector('.qf-slide.qf-active');
-      if (current) {
-        current.classList.remove('qf-active');
-        current.classList.add(direction === 'forward' ? 'qf-exit-up' : '');
-        current.style.pointerEvents = 'none';
-      }
-      // Reset transform on all
-      slides.forEach(function(s, i) {
-        if (i !== n) {
-          s.classList.remove('qf-active', 'qf-exit-up');
-          s.style.pointerEvents = 'none';
-        }
-      });
-      setTimeout(function(){
-        slides[n].classList.remove('qf-exit-up');
-        slides[n].classList.add('qf-active');
-        slides[n].style.pointerEvents = 'auto';
-        // Focus first input if present
-        var inp = slides[n].querySelector('input');
-        if (inp) setTimeout(function(){ inp.focus(); }, 100);
-      }, direction === 'none' ? 0 : 80);
+    // --- localStorage persistence ---
+    var STORAGE_KEY = 'aspira_lead';
+    function saveData() {
+      data.lastStep = step;
+      data.savedAt = new Date().toISOString();
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){}
+    }
+    function loadData() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) { data = JSON.parse(saved); }
+      } catch(e){}
+    }
+    // Load any existing partial data on init
+    loadData();
 
-      // Update progress
+    function showSlide(n) {
+      slides.forEach(function(s){ s.classList.remove('qf-active'); });
+      if (slides[n]) {
+        // Small delay so the previous one hides before new one animates in
+        setTimeout(function(){
+          slides[n].classList.add('qf-active');
+          var inp = slides[n].querySelector('input');
+          if (inp) setTimeout(function(){ inp.focus(); }, 150);
+        }, 50);
+      }
+
+      // Progress
       if (n < totalSteps) {
         bar.style.width = ((n + 1) / totalSteps * 100) + '%';
         stepLabel.textContent = (n + 1) + ' of ' + totalSteps;
-        progressWrap.style.display = '';
+        progressWrap.style.opacity = '1';
       } else {
         bar.style.width = '100%';
-        progressWrap.style.display = 'none';
+        progressWrap.style.opacity = '0';
       }
-      // Back button
+      // Back
       backWrap.style.display = (n > 0 && n < totalSteps) ? '' : 'none';
     }
 
@@ -1698,6 +1806,7 @@
           if (!f) return setError('qf-first-err', 'Please enter your first name');
           if (!l) return setError('qf-last-err', 'Please enter your last name');
           data.firstName = f; data.lastName = l;
+          saveData();
           return true;
         case 1:
           var e = document.getElementById('qf-email').value.trim();
@@ -1705,6 +1814,7 @@
           if (!e) return setError('qf-email-err', 'Please enter your email address');
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return setError('qf-email-err', 'Please enter a valid email address');
           data.email = e;
+          saveData();
           return true;
         case 2:
           var p = document.getElementById('qf-phone').value.trim();
@@ -1712,24 +1822,29 @@
           if (!p) return setError('qf-phone-err', 'Please enter your phone number');
           if (p.replace(/\D/g,'').length < 7) return setError('qf-phone-err', 'Please enter a valid phone number');
           data.phone = p;
+          saveData();
           return true;
         case 3:
           clearError('qf-accredited-err');
           var sel = document.querySelector('#qf-accredited-opts .qf-option.selected');
           if (!sel) return setError('qf-accredited-err', 'Please select an option');
           data.accredited = sel.getAttribute('data-value');
+          saveData();
           return true;
         case 4:
           clearError('qf-amount-err');
           var sel2 = document.querySelector('#qf-amount-opts .qf-option.selected');
           if (!sel2) return setError('qf-amount-err', 'Please select an investment range');
           data.amount = sel2.getAttribute('data-value');
+          saveData();
           return true;
         case 5:
           clearError('qf-source-err');
           var sel3 = document.querySelector('#qf-source-opts .qf-option.selected');
           if (!sel3) return setError('qf-source-err', 'Please select how you heard about us');
           data.source = sel3.getAttribute('data-value');
+          data.completed = true;
+          saveData();
           return true;
       }
       return true;
@@ -1738,61 +1853,102 @@
     window.qfNext = function() {
       if (!validateStep(step)) return;
       step++;
-      // If they said "no" to accredited, show not-qualified screen
+      // Not accredited → rejection screen
       if (step === 4 && data.accredited === 'no') {
-        document.getElementById('qf-not-qualified').style.display = '';
-        step = 7; // jump to not-qualified
-        showSlide(step, 'forward');
+        step = 7;
+        showSlide(step);
         backWrap.style.display = 'none';
-        progressWrap.style.display = 'none';
+        progressWrap.style.opacity = '0';
         return;
       }
       if (step >= totalSteps) {
-        // Submit data (send via mailto-free method or just log for now)
-        console.log('Aspira Lead:', JSON.stringify(data));
-        step = 6; // success screen
+        step = 6; // success
+        console.log('Aspira Lead (complete):', JSON.stringify(data));
       }
-      showSlide(step, 'forward');
+      showSlide(step);
     };
 
     window.qfBack = function() {
       if (step <= 0) return;
       step--;
-      showSlide(step, 'back');
+      showSlide(step);
     };
 
     window.qfSelect = function(btn) {
-      var parent = btn.parentElement;
-      parent.querySelectorAll('.qf-option').forEach(function(o){ o.classList.remove('selected'); });
+      btn.parentElement.querySelectorAll('.qf-option').forEach(function(o){ o.classList.remove('selected'); });
       btn.classList.add('selected');
-      // Auto-advance after small delay
-      setTimeout(function(){ window.qfNext(); }, 350);
+      setTimeout(function(){ window.qfNext(); }, 300);
     };
 
-    // Keyboard support: Enter to continue
+    // Open overlay
+    window.openQualifyForm = function() {
+      // Reset to step 0 each time (fresh start)
+      step = 0;
+      data = {};
+      // Clear all inputs and selections
+      overlay.querySelectorAll('.qf-input').forEach(function(inp){ inp.value = ''; });
+      overlay.querySelectorAll('.qf-option.selected').forEach(function(o){ o.classList.remove('selected'); });
+      overlay.querySelectorAll('.qf-error').forEach(function(e){ e.textContent = ''; });
+
+      overlay.style.display = '';
+      overlay.classList.remove('qf-closing');
+      document.body.style.overflow = 'hidden';
+      showSlide(0);
+    };
+
+    // Close overlay
+    window.closeQualifyForm = function() {
+      // Save whatever they've entered so far
+      var f = document.getElementById('qf-first');
+      var l = document.getElementById('qf-last');
+      var e = document.getElementById('qf-email');
+      var p = document.getElementById('qf-phone');
+      if (f && f.value.trim()) data.firstName = f.value.trim();
+      if (l && l.value.trim()) data.lastName = l.value.trim();
+      if (e && e.value.trim()) data.email = e.value.trim();
+      if (p && p.value.trim()) data.phone = p.value.trim();
+      data.closedAtStep = step;
+      saveData();
+
+      overlay.classList.add('qf-closing');
+      setTimeout(function(){
+        overlay.style.display = 'none';
+        overlay.classList.remove('qf-closing');
+        document.body.style.overflow = '';
+      }, 250);
+    };
+
+    // Keyboard: Enter to continue, Escape to close
     document.addEventListener('keydown', function(e) {
+      if (overlay.style.display === 'none') return;
+      if (e.key === 'Escape') { closeQualifyForm(); return; }
       if (e.key === 'Enter') {
-        var activeSlide = document.querySelector('.qf-slide.qf-active');
-        if (activeSlide && activeSlide.querySelector('.qf-btn')) {
+        var active = overlay.querySelector('.qf-slide.qf-active');
+        if (active && active.querySelector('.qf-btn')) {
           e.preventDefault();
           window.qfNext();
         }
       }
     });
 
-    // Phone formatting
-    var phoneInput = document.getElementById('qf-phone');
-    phoneInput.addEventListener('input', function() {
+    // Phone auto-format
+    document.getElementById('qf-phone').addEventListener('input', function() {
       var x = this.value.replace(/\D/g, '').substring(0, 10);
-      var formatted = '';
-      if (x.length > 0) formatted = '(' + x.substring(0, 3);
-      if (x.length >= 3) formatted += ') ' + x.substring(3, 6);
-      if (x.length >= 6) formatted += '-' + x.substring(6, 10);
-      this.value = formatted;
+      var out = '';
+      if (x.length > 0) out = '(' + x.substring(0,3);
+      if (x.length >= 3) out += ') ' + x.substring(3,6);
+      if (x.length >= 6) out += '-' + x.substring(6,10);
+      this.value = out;
     });
 
-    // Initialize
-    showSlide(0, 'none');
+    // Wire up ALL CTA links on the page to open the form
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href="#qualify"]');
+      if (link) {
+        e.preventDefault();
+        openQualifyForm();
+      }
+    });
   })();
   </script>
 
