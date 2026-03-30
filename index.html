@@ -1408,6 +1408,11 @@
     <div id="qf-center">
       <div id="qf-inner">
 
+        <!-- Back button (inline, above question) -->
+        <div id="qf-back-wrap">
+          <button onclick="qfBack()" id="qf-back-btn">&larr; Back</button>
+        </div>
+
         <!-- Q1: Full Name -->
         <div class="qf-slide qf-active" data-step="0">
           <p class="qf-num">1 &rarr;</p>
@@ -1539,10 +1544,6 @@
       </div>
     </div>
 
-    <!-- Back button bottom-left -->
-    <div id="qf-back-wrap">
-      <button onclick="qfBack()" id="qf-back-btn">&larr; Back</button>
-    </div>
   </div>
 
   <style>
@@ -1717,17 +1718,17 @@
     }
 
     #qf-back-wrap {
-      position: fixed; bottom: 1.5rem; left: 1.75rem; z-index: 10001;
-      display: none;
+      display: none; margin-bottom: 1.5rem;
     }
     #qf-back-btn {
-      background: none; border: none;
-      color: rgba(255,255,255,0.3);
-      font-size: 0.875rem; font-family: var(--font-body);
-      cursor: pointer; padding: 0.5rem 0;
-      transition: color 0.2s;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8125rem; font-family: var(--font-body); font-weight: 500;
+      cursor: pointer; padding: 0.45rem 1rem; border-radius: 100px;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.35rem;
     }
-    #qf-back-btn:hover { color: rgba(255,255,255,0.6); }
+    #qf-back-btn:hover { color: #fff; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
 
     @media (max-width: 640px) {
       .qf-btn-hint { display: none; }
@@ -1738,7 +1739,7 @@
       #qf-center { padding: 4.5rem 1.25rem 3rem; }
       .qf-fields-row { grid-template-columns: 1fr !important; }
       .qf-input { font-size: 1.0625rem; }
-      #qf-back-wrap { bottom: 1rem; left: 1rem; }
+      #qf-back-wrap { margin-bottom: 1rem; }
     }
   </style>
 
