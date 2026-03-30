@@ -727,7 +727,7 @@
           if (isMobile) {
             // On mobile: render at phone width, fixed height. Deck handles its own slide splitting.
             var iframeW = containerW;
-            var slideH = Math.round(iframeW * 1.25);
+            var slideH = Math.round(iframeW * 0.95);
             iframe.style.width = iframeW + 'px';
             iframe.style.height = slideH + 'px';
             scaler.style.transform = 'none';
