@@ -1500,20 +1500,24 @@
           <p class="qf-num">6 &rarr;</p>
           <h2 class="qf-question">How did you hear about Aspira Capital?</h2>
           <div class="qf-options" id="qf-source-opts">
-            <button class="qf-option" data-value="referral" onclick="qfSelect(this)">
+            <button class="qf-option" data-value="meta-ads" onclick="qfSelect(this)">
               <span class="qf-option-key">A</span>
+              <span>Facebook / Instagram ad</span>
+            </button>
+            <button class="qf-option" data-value="referral" onclick="qfSelect(this)">
+              <span class="qf-option-key">B</span>
               <span>Referral from a friend or colleague</span>
             </button>
             <button class="qf-option" data-value="social" onclick="qfSelect(this)">
-              <span class="qf-option-key">B</span>
-              <span>Social media (LinkedIn, Instagram, etc.)</span>
+              <span class="qf-option-key">C</span>
+              <span>Social media (LinkedIn, etc.)</span>
             </button>
             <button class="qf-option" data-value="search" onclick="qfSelect(this)">
-              <span class="qf-option-key">C</span>
+              <span class="qf-option-key">D</span>
               <span>Google / online search</span>
             </button>
             <button class="qf-option" data-value="other" onclick="qfSelect(this)">
-              <span class="qf-option-key">D</span>
+              <span class="qf-option-key">E</span>
               <span>Other</span>
             </button>
           </div>
@@ -1718,7 +1722,7 @@
     }
 
     #qf-back-wrap {
-      display: none; margin-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     #qf-back-btn {
       background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
@@ -1792,7 +1796,7 @@
         progressWrap.style.opacity = '0';
       }
       // Back
-      backWrap.style.display = (n > 0 && n < totalSteps) ? '' : 'none';
+      backWrap.style.display = (n > 0 && n < totalSteps) ? 'block' : 'none';
     }
 
     function clearError(id) { document.getElementById(id).textContent = ''; }
